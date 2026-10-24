@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>영어회화 패턴 · 선생님</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#EEF4FB; --ink:#1F2A44; --muted:#6B7A99; --line:#E3E9F5; --soft:#EEF4FF;
+    --orange:#FF8A3D; --orange2:#E8701F; --mint:#2EC27E; --mint2:#1DA368; --sun:#FFC93C; --sky:#3B82F6; --sky2:#2563EB; --grape:#7C5CFF; --coral:#FF5C6A; --bad:#EF4444; --warn:#F59E0B;
+    --r:18px; --shadow:0 8px 24px rgba(30,64,140,.08); }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Nunito",-apple-system,"Malgun Gothic",sans-serif;font-size:16px}
+  body{background:radial-gradient(520px 300px at 100% -6%, #FFF1C2 0%, rgba(255,241,194,0) 70%),linear-gradient(180deg,#E3EEFB 0%, var(--bg) 40%)}
+  .wrap{max-width:1180px;margin:0 auto;padding:12px 18px 40px}
+  .en{font-family:Nunito,"Noto Sans KR",sans-serif}
+  .hidden{display:none!important}
+  .muted{color:var(--muted)} .sm{font-size:.85em} .xs{font-size:.78em}
+  button{font-family:inherit;color:inherit;cursor:pointer}
+  .top{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.05em}
+  .sp{flex:1}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:#fff;box-shadow:var(--shadow);font-weight:800;font-size:.85em;white-space:nowrap}
+  .card{background:#fff;border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+  h2{margin:0 0 12px;font-size:1.1em;font-weight:900;display:flex;align-items:center;gap:8px}
+  h3{margin:0 0 8px;font-size:.95em;font-weight:900}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border:0;border-radius:14px;font-size:.95em;font-weight:900;color:#fff;background:var(--sky);box-shadow:0 4px 0 var(--sky2);transition:transform .06s,box-shadow .06s}
+  .btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sky2)}
+  .btn.gray{background:#fff;color:var(--ink);box-shadow:0 4px 0 #D7DEEB;border:2px solid #E6EBF5}
+  .btn.orange{background:var(--orange);box-shadow:0 4px 0 var(--orange2)}
+  .btn.green{background:var(--mint);box-shadow:0 4px 0 var(--mint2)}
+  .btn.sm{min-height:36px;padding:0 12px;font-size:.82em;border-radius:10px}
+  .btn:disabled{opacity:.45}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  input,select,textarea{font-family:inherit;font-size:1em;border:2px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--ink);background:#fff}
+  textarea{width:100%;min-height:90px;resize:vertical;line-height:1.5}
+  .sunny{display:inline-block;vertical-align:middle}
+  .sunny .rays{transform-origin:60px 60px;animation:spin 26s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* 로그인 */
+  .login{max-width:560px;margin:40px auto}
+  .pin{font-family:Nunito;font-size:1.6em;letter-spacing:8px;text-align:center;width:200px}
+  .clsgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:8px}
+  .clsgrid button{border:2px solid var(--line);border-bottom-width:5px;border-radius:14px;background:#fff;padding:14px 10px;font-weight:900;font-size:1em}
+  .clsgrid button.on{border-color:var(--sky);background:var(--soft);color:var(--sky2)}
+  .clsgrid small{display:block;color:var(--muted);font-weight:700;font-size:.75em}
+
+  /* 반 현황 */
+  .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px}
+  @media (max-width:1000px){ .tiles{grid-template-columns:repeat(3,1fr)} }
+  @media (max-width:560px){ .tiles{grid-template-columns:repeat(2,1fr)} }
+  .tile{background:#fff;border-radius:16px;padding:14px 16px;box-shadow:var(--shadow)}
+  .tile .v{font-family:Nunito,"Noto Sans KR";font-weight:900;font-size:1.8em;line-height:1.1}
+  .tile .l{color:var(--muted);font-size:.78em;font-weight:700}
+  .tile.warn .v{color:var(--bad)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .fchip{border:2px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-weight:800;font-size:.85em}
+  .fchip.on{border-color:var(--sky);background:var(--soft);color:var(--sky2)}
+  .tbl{width:100%;border-collapse:collapse;font-size:.9em}
+  .tbl th{position:sticky;top:0;background:#F6F9FF;text-align:left;padding:10px 8px;font-size:.8em;color:var(--muted);border-bottom:2px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
+  .tbl th.s{color:var(--sky2)}
+  .tbl td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+  .tbl tr:hover td{background:#FAFCFF}
+  .tbl .nm{font-weight:900;font-size:1.05em;cursor:pointer}
+  .tbl .nm span{font-size:1.3em;margin-right:4px}
+  .st{display:inline-block;padding:3px 10px;border-radius:999px;font-weight:900;font-size:.78em}
+  .st.g{background:#E3F8EC;color:#15803D}.st.y{background:#FFF4CC;color:#8a5a00}.st.r{background:#FFE1E3;color:#B91C1C}.st.n{background:#EEF1F7;color:#6B7A99}
+  .mini{display:inline-block;height:10px;width:90px;border-radius:5px;background:#E6EBF5;overflow:hidden;vertical-align:middle}
+  .mini i{display:block;height:100%;background:var(--mint)}
+  .tscroll{overflow:auto;max-height:70vh}
+
+  /* 학생 상세 */
+  .shead{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .av{width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,#FFE3A3,#FFC3C3);display:grid;place-items:center;font-size:2em;flex:none}
+  .badge{display:inline-block;padding:4px 10px;border-radius:10px;background:var(--soft);color:var(--sky2);font-weight:900;font-size:.8em;margin:4px 4px 0 0}
+  .badge.gold{background:#FFF4CC;color:#8a5a00}.badge.mint{background:#E3F8EC;color:#15803D}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+  @media (max-width:860px){ .two{grid-template-columns:1fr} }
+  .advise{border-radius:14px;padding:12px 14px;margin-bottom:8px;font-weight:700;display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+  .advise.warn{background:#FFF1F1;border:2px solid #FFC9C9}
+  .advise.info{background:#FFF8DF;border:2px solid #FFE08A}
+  .advise.good{background:#E8FBF0;border:2px solid #B6EBCB}
+  .advise.todo{background:#EEF4FF;border:2px solid #C9DAFF}
+  .chart{width:100%;height:auto;display:block}
+  .chart text{font-family:"Noto Sans KR",Nunito,sans-serif}
+  .strip{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
+  .strip i{height:16px;border-radius:4px;background:#E6EBF5;display:block;position:relative}
+  .strip i.p{background:#B6EBCB}.strip i.f{background:var(--mint)}
+  .strip i.now{outline:2px solid var(--orange);outline-offset:1px}
+  .striplab{display:flex;justify-content:space-between;font-size:.72em;color:var(--muted);margin-top:4px}
+  .act{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.88em;align-items:center}
+  .act .d{color:var(--muted);width:48px;flex:none;font-family:Nunito;font-weight:800}
+  .act .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tag{display:inline-block;padding:2px 8px;border-radius:8px;background:#EEF1F7;font-size:.78em;font-weight:800;color:#4B5675}
+  .tag.ok{background:#E3F8EC;color:#15803D}.tag.rp{background:#E0F2FE;color:#0369A1}.tag.ai{background:#F3E8FF;color:#6D28D9}.tag.ms{background:#FFF4CC;color:#8a5a00}
+  .weak span{display:inline-block;margin:4px 6px 0 0;padding:6px 10px;border-radius:10px;background:#FFE1E3;color:#B91C1C;font-family:Nunito;font-weight:900}
+  .mis a{display:inline-flex;align-items:center;gap:6px;margin:4px 6px 0 0;padding:8px 12px;border-radius:10px;background:#FFF8DF;border:2px solid #FFE08A;color:var(--ink);text-decoration:none;font-weight:800;font-size:.85em}
+
+  /* 리포트(인쇄) */
+  .report{background:#fff;border-radius:var(--r);padding:28px 34px;box-shadow:var(--shadow);margin:0 auto 18px;max-width:860px;page-break-after:always;break-after:page}
+  .report:last-child{page-break-after:auto;break-after:auto}
+  .rhead{display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--sun);padding-bottom:12px;margin-bottom:16px}
+  .rhead .t1{font-weight:900;font-size:1.35em}
+  .rhead .t2{color:var(--muted);font-weight:700;font-size:.85em}
+  .rtiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+  .rtile{border:2px solid var(--line);border-radius:14px;padding:10px 12px;text-align:center}
+  .rtile .v{font-family:Nunito,"Noto Sans KR";font-weight:900;font-size:1.5em;color:var(--sky2)}
+  .rtile .l{font-size:.75em;color:var(--muted);font-weight:700}
+  .rsec{margin-bottom:14px}
+  .rsec h3{border-left:5px solid var(--orange);padding-left:8px;margin-bottom:8px}
+  .rlist{columns:2;column-gap:20px;font-size:.9em;line-height:1.6}
+  .rlist div{break-inside:avoid}
+  .rnote{border:2px dashed #FFD98A;background:#FFF8DF;border-radius:12px;padding:12px 14px;min-height:60px;white-space:pre-wrap;line-height:1.55}
+  .rfoot{margin-top:14px;font-size:.78em;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:8px}
+  .rtbl{width:100%;border-collapse:collapse;font-size:.85em}
+  .rtbl th,.rtbl td{border:1px solid var(--line);padding:6px 8px;text-align:center}
+  .rtbl th{background:#F6F9FF}
+  .rtbl td.l{text-align:left;font-weight:900}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1F2A44;color:#fff;padding:12px 20px;border-radius:14px;font-weight:800;z-index:9}
+  .report .two{grid-template-columns:1fr 1fr}
+  @media print{
+    html,body{background:#fff}
+    .noprint,.top,.toast{display:none!important}
+    .wrap{max-width:none;padding:0}
+    .report{box-shadow:none;border-radius:0;max-width:none;padding:3mm 2mm;margin:0;font-size:12.5px}
+    .report .rtiles{margin-bottom:6px} .report .rsec{margin-bottom:6px} .report .rhead{margin-bottom:8px;padding-bottom:6px} .report .rtile{padding:6px 10px} .report .rfoot{margin-top:6px} .report .strip i{height:11px} .report .rnote{min-height:40px;padding:8px 12px}
+    .rtiles .rtile,.advise,.rsec{break-inside:avoid}
+    @page{size:A4;margin:9mm}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="logo"><span id="logoSun"></span><span>영어회화 패턴 · 선생님</span></div>
+    <div class="sp"></div>
+    <span class="chip hidden" id="clsChip"></span>
+    <button class="btn gray sm hidden" id="btnReload" onclick="loadClass(true)">🔄 새로고침</button>
+    <button class="btn gray sm hidden" id="btnBack" onclick="showClass()">📋 반 현황</button>
+    <button class="btn gray sm hidden" id="btnOut" onclick="logout()">🔒 나가기</button>
+  </div>
+
+  <!-- 로그인 -->
+  <section id="sLogin" class="card login">
+    <div class="row" style="gap:14px"><span id="loginSun"></span><div><h2 style="margin:0">선생님 로그인</h2><div class="muted sm">학생들의 학습 현황을 보고, 지도 방안과 학부모 상담 리포트를 만듭니다.</div></div></div>
+    <div style="margin-top:18px"><div class="muted sm" style="font-weight:800">선생님 비밀번호</div>
+      <div class="row" style="margin-top:6px"><input id="pin" class="pin" inputmode="numeric" maxlength="8" placeholder="••••"><span class="muted xs">처음엔 1234 · Apps Script 스크립트 속성 <b>TEACHER_PIN</b>에서 바꿀 수 있어요</span></div></div>
+    <div style="margin-top:16px"><div class="muted sm" style="font-weight:800">반 선택</div><div class="clsgrid" id="clsGrid"><span class="muted sm">불러오는 중…</span></div></div>
+    <div class="row" style="margin-top:18px"><button class="btn orange" style="flex:1" onclick="login()">들어가기 →</button></div>
+    <div id="loginMsg" style="color:var(--bad);font-weight:800;margin-top:8px"></div>
+  </section>
+
+  <!-- 반 현황 -->
+  <section id="sClass" class="hidden">
+    <div class="tiles" id="tiles"></div>
+    <div class="card">
+      <div class="row" style="justify-content:space-between;margin-bottom:10px">
+        <h2 style="margin:0" id="clsTitle">📋 반 현황</h2>
+        <div class="row"><button class="btn green sm" onclick="openReport(filtered().map(function(s){ return s.name; }))">🖨️ 학생별 리포트 한꺼번에</button><button class="btn sm" onclick="openClassReport()">📄 반 전체 리포트</button></div>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="tscroll"><table class="tbl" id="tbl"></table></div>
+      <div class="muted xs" style="margin-top:8px">이름을 누르면 학생 상세로 이동 · 열 제목을 누르면 정렬 · 🟢 3일 안에 학습 🟡 4~7일 🔴 8일 이상 안 함 ⚪ 시작 전</div>
+    </div>
+  </section>
+
+  <!-- 학생 상세 -->
+  <section id="sStudent" class="hidden"></section>
+
+  <!-- 리포트 -->
+  <section id="sReport" class="hidden">
+    <div class="row noprint" style="justify-content:space-between;margin-bottom:12px">
+      <div class="muted sm">인쇄 창에서 「PDF로 저장」을 고르면 PDF 파일로 저장돼요. (A4 세로)</div>
+      <div class="row"><button class="btn gray sm" onclick="showClass()">← 돌아가기</button><button class="btn orange" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button></div>
+    </div>
+    <div id="reports"></div>
+  </section>
+</div>
+
+<script>
+var APPS_SCRIPT_URL = "";   // 비워두면 같은 폴더의 index.html 주소를 자동으로 씁니다
+var ACADEMY = '효천영어도서관';
+var PATS = [{"no":1,"id":"B01","pattern":"My name is ___.","ko":"내 이름은 ~야.","unit":"나와 인사","band":"초급"},{"no":2,"id":"B02","pattern":"I'm ___.","ko":"나는 ~해(기분).","unit":"나와 인사","band":"초급"},{"no":3,"id":"B03","pattern":"How old are you? – I'm ___ years old.","ko":"몇 살이니? – ~살이야.","unit":"나와 인사","band":"초급"},{"no":4,"id":"B04","pattern":"This is my ___.","ko":"이 사람은 내 ~야(소개).","unit":"나와 인사","band":"초급"},{"no":5,"id":"B05","pattern":"See you ___!","ko":"~에 만나!(헤어질 때)","unit":"나와 인사","band":"초급"},{"no":6,"id":"B06","pattern":"What's this? – It's a ___.","ko":"이게 뭐야? – 그건 ~야.","unit":"이건 뭐야?","band":"초급"},{"no":7,"id":"B07","pattern":"It's ___.","ko":"그건 ~색이야.","unit":"이건 뭐야?","band":"초급"},{"no":8,"id":"B08","pattern":"Is it a ___? – Yes, it is. / No, it isn't.","ko":"그거 ~야? – 응 / 아니.","unit":"이건 뭐야?","band":"초급"},{"no":9,"id":"B09","pattern":"I have a ___.","ko":"나는 ~가 있어.","unit":"이건 뭐야?","band":"초급"},{"no":10,"id":"B10","pattern":"Is this your ___? – Yes, it is. Thank you.","ko":"이거 네 ~니? – 응, 고마워.","unit":"이건 뭐야?","band":"초급"},{"no":11,"id":"B11","pattern":"I like ___.","ko":"나는 ~를 좋아해.","unit":"좋아하는 것","band":"초급"},{"no":12,"id":"B12","pattern":"I don't like ___.","ko":"나는 ~를 안 좋아해.","unit":"좋아하는 것","band":"초급"},{"no":13,"id":"B13","pattern":"Do you like ___? – Yes, I do. / No, I don't.","ko":"~를 좋아하니? – 응 / 아니.","unit":"좋아하는 것","band":"초급"},{"no":14,"id":"B14","pattern":"What animal do you like? – I like ___.","ko":"어떤 동물을 좋아해? – ~를 좋아해.","unit":"좋아하는 것","band":"초급"},{"no":15,"id":"B15","pattern":"___, please.","ko":"~ 주세요.","unit":"좋아하는 것","band":"초급"},{"no":16,"id":"B16","pattern":"I can ___.","ko":"나는 ~할 수 있어.","unit":"할 수 있어요","band":"초급"},{"no":17,"id":"B17","pattern":"I can't ___.","ko":"나는 ~못 해.","unit":"할 수 있어요","band":"초급"},{"no":18,"id":"B18","pattern":"Can you ___? – Yes, I can. / No, I can't.","ko":"~할 수 있니? – 응 / 아니.","unit":"할 수 있어요","band":"초급"},{"no":19,"id":"B19","pattern":"Let's ___.","ko":"~하자.","unit":"할 수 있어요","band":"초급"},{"no":20,"id":"B20","pattern":"Let's go to the ___.","ko":"~에 가자.","unit":"할 수 있어요","band":"초급"},{"no":21,"id":"B21","pattern":"I want ___.","ko":"나는 ~를 원해.","unit":"원해요·부탁해요","band":"초급"},{"no":22,"id":"B22","pattern":"I want to ___.","ko":"나는 ~하고 싶어.","unit":"원해요·부탁해요","band":"초급"},{"no":23,"id":"B23","pattern":"Do you want ___? – Yes, please. / No, thank you.","ko":"~ 먹을래? – 응, 줘 / 아니, 괜찮아.","unit":"원해요·부탁해요","band":"초급"},{"no":24,"id":"B24","pattern":"Can I have ___?","ko":"~ 주실래요?","unit":"원해요·부탁해요","band":"초급"},{"no":25,"id":"B25","pattern":"Can I ___?","ko":"~해도 돼요?(허락)","unit":"원해요·부탁해요","band":"초급"},{"no":26,"id":"B26","pattern":"Where is my ___?","ko":"내 ~ 어디 있어?","unit":"어디 있어요?","band":"초급"},{"no":27,"id":"B27","pattern":"It's in / on / under the ___.","ko":"~ 안에 / 위에 / 아래에 있어.","unit":"어디 있어요?","band":"초급"},{"no":28,"id":"B28","pattern":"I'm in the ___.","ko":"나는 ~에 있어(방).","unit":"어디 있어요?","band":"초급"},{"no":29,"id":"B29","pattern":"There is a ___.","ko":"~가 (하나) 있어.","unit":"어디 있어요?","band":"초급"},{"no":30,"id":"B30","pattern":"There are ___.","ko":"~들이 있어(여러 개).","unit":"어디 있어요?","band":"초급"},{"no":31,"id":"B31","pattern":"How many ___? – ___.","ko":"~가 몇 개야? – ~개.","unit":"숫자와 시간","band":"초급"},{"no":32,"id":"B32","pattern":"I have ___ ___.","ko":"나는 ~를 …개 가지고 있어.","unit":"숫자와 시간","band":"초급"},{"no":33,"id":"B33","pattern":"What time is it? – It's ___.","ko":"몇 시야? – ~시야.","unit":"숫자와 시간","band":"초급"},{"no":34,"id":"B34","pattern":"What day is it today? – It's ___.","ko":"오늘 무슨 요일이야? – ~요일이야.","unit":"숫자와 시간","band":"초급"},{"no":35,"id":"B35","pattern":"It's a ___ ___.","ko":"그건 ~한 …야(모양·크기).","unit":"숫자와 시간","band":"초급"},{"no":36,"id":"B36","pattern":"How's the weather? – It's ___.","ko":"날씨 어때? – ~해.","unit":"날씨와 계절","band":"초급"},{"no":37,"id":"B37","pattern":"Put on your ___.","ko":"~를 입어 / 써 / 신어.","unit":"날씨와 계절","band":"초급"},{"no":38,"id":"B38","pattern":"What season do you like? – I like ___.","ko":"어떤 계절 좋아해? – ~을 좋아해.","unit":"날씨와 계절","band":"초급"},{"no":39,"id":"B39","pattern":"Is it ___? – Yes, it is. / No, it isn't.","ko":"~하니? – 응 / 아니.","unit":"날씨와 계절","band":"초급"},{"no":40,"id":"B40","pattern":"Look at the ___!","ko":"~ 좀 봐!","unit":"날씨와 계절","band":"초급"},{"no":41,"id":"B41","pattern":"I'm ___ing.","ko":"나는 ~하고 있어.","unit":"하루 생활","band":"초급"},{"no":42,"id":"B42","pattern":"He's / She's ___ing.","ko":"그는 / 그녀는 ~하고 있어.","unit":"하루 생활","band":"초급"},{"no":43,"id":"B43","pattern":"I ___ every day.","ko":"나는 매일 ~해.","unit":"하루 생활","band":"초급"},{"no":44,"id":"B44","pattern":"Please ___.","ko":"~해 주세요(교실 영어).","unit":"하루 생활","band":"초급"},{"no":45,"id":"B45","pattern":"Don't ___.","ko":"~하지 마.","unit":"하루 생활","band":"초급"},{"no":46,"id":"B46","pattern":"Who is he / she? – He's / She's my ___.","ko":"그(녀)는 누구야? – 내 ~야.","unit":"사람과 몸","band":"초급"},{"no":47,"id":"B47","pattern":"He's / She's ___.","ko":"그(녀)는 ~해(생김새·성격).","unit":"사람과 몸","band":"초급"},{"no":48,"id":"B48","pattern":"He's / She's a ___.","ko":"그(녀)는 ~야(직업).","unit":"사람과 몸","band":"초급"},{"no":49,"id":"B49","pattern":"Touch your ___.","ko":"~를 만져 봐(몸).","unit":"사람과 몸","band":"초급"},{"no":50,"id":"B50","pattern":"I have ___.","ko":"나는 ~를 가졌어(생김새).","unit":"사람과 몸","band":"초급"},{"no":51,"id":"B51","pattern":"I go to school by ___.","ko":"나는 ~로 학교에 가.","unit":"장소와 탈것","band":"초급"},{"no":52,"id":"B52","pattern":"I'm at the ___.","ko":"나는 ~에 있어(장소).","unit":"장소와 탈것","band":"초급"},{"no":53,"id":"B53","pattern":"What do you see? – I see a ___.","ko":"뭐가 보여? – ~가 보여.","unit":"장소와 탈것","band":"초급"},{"no":54,"id":"B54","pattern":"Is there a ___? – Yes, there is. / No, there isn't.","ko":"~가 있니? – 응 / 아니.","unit":"장소와 탈것","band":"초급"},{"no":55,"id":"B55","pattern":"Where are you going? – I'm going to the ___.","ko":"어디 가? – ~에 가는 중이야.","unit":"장소와 탈것","band":"초급"},{"no":56,"id":"B56","pattern":"Thank you for the ___.","ko":"~ 고마워.","unit":"마음과 예절","band":"초급"},{"no":57,"id":"B57","pattern":"Happy ___!","ko":"~ 축하해!","unit":"마음과 예절","band":"초급"},{"no":58,"id":"B58","pattern":"This is for you.","ko":"이건 너를 위한 거야.","unit":"마음과 예절","band":"초급"},{"no":59,"id":"B59","pattern":"Are you ___? – Yes, I am. / No, I'm not.","ko":"너 ~하니? – 응 / 아니.","unit":"마음과 예절","band":"초급"},{"no":60,"id":"B60","pattern":"You're ___!","ko":"너는 ~해!(칭찬)","unit":"마음과 예절","band":"초급"},{"no":61,"id":"I01","pattern":"I was ___ yesterday.","ko":"나는 어제 ~였어.","unit":"지난 일 말하기","band":"중급"},{"no":62,"id":"I02","pattern":"I ___ed yesterday.","ko":"나는 어제 ~했어(규칙 과거).","unit":"지난 일 말하기","band":"중급"},{"no":63,"id":"I03","pattern":"I went to the ___ last weekend.","ko":"지난 주말에 ~에 갔어.","unit":"지난 일 말하기","band":"중급"},{"no":64,"id":"I04","pattern":"What did you do ___? – I ___.","ko":"~에 뭐 했어? – 나는 ~했어.","unit":"지난 일 말하기","band":"중급"},{"no":65,"id":"I05","pattern":"Did you ___? – Yes, I did. / No, I didn't.","ko":"~했니? – 응 / 아니.","unit":"지난 일 말하기","band":"중급"},{"no":66,"id":"I06","pattern":"I'm going to ___ this weekend.","ko":"이번 주말에 ~할 거야.","unit":"앞으로의 계획","band":"중급"},{"no":67,"id":"I07","pattern":"Are you going to ___? – Yes, I am. / No, I'm not.","ko":"~할 거니? – 응 / 아니.","unit":"앞으로의 계획","band":"중급"},{"no":68,"id":"I08","pattern":"I'll ___.","ko":"내가 ~할게.(약속·즉석 결정)","unit":"앞으로의 계획","band":"중급"},{"no":69,"id":"I09","pattern":"What are you going to do ___?","ko":"~에 뭐 할 거야?","unit":"앞으로의 계획","band":"중급"},{"no":70,"id":"I10","pattern":"Let's meet at ___.","ko":"~에서 / ~시에 만나자.","unit":"앞으로의 계획","band":"중급"},{"no":71,"id":"I11","pattern":"I have to ___.","ko":"나는 ~해야 해.","unit":"해야 할 일·충고","band":"중급"},{"no":72,"id":"I12","pattern":"You should ___.","ko":"너는 ~하는 게 좋겠어.(충고)","unit":"해야 할 일·충고","band":"중급"},{"no":73,"id":"I13","pattern":"You shouldn't ___.","ko":"~하지 않는 게 좋겠어.","unit":"해야 할 일·충고","band":"중급"},{"no":74,"id":"I14","pattern":"Do I have to ___? – Yes, you do. / No, you don't.","ko":"~해야 하나요? – 응 / 아니 안 해도 돼.","unit":"해야 할 일·충고","band":"중급"},{"no":75,"id":"I15","pattern":"Don't forget to ___.","ko":"~하는 것 잊지 마.","unit":"해야 할 일·충고","band":"중급"},{"no":76,"id":"I16","pattern":"Could you ___, please?","ko":"~해 주시겠어요?(공손한 부탁)","unit":"부탁과 허락","band":"중급"},{"no":77,"id":"I17","pattern":"May I ___?","ko":"~해도 될까요?(공손한 허락)","unit":"부탁과 허락","band":"중급"},{"no":78,"id":"I18","pattern":"Can you help me ___?","ko":"~하는 것 좀 도와줄래?","unit":"부탁과 허락","band":"중급"},{"no":79,"id":"I19","pattern":"Would you like ___? – Yes, please. / No, thanks.","ko":"~ 드실래요? / ~할래요?","unit":"부탁과 허락","band":"중급"},{"no":80,"id":"I20","pattern":"Sorry, I can't. I have to ___.","ko":"미안, 못 해. ~해야 하거든.","unit":"부탁과 허락","band":"중급"},{"no":81,"id":"I21","pattern":"My favorite ___ is ___.","ko":"내가 가장 좋아하는 ~는 …야.","unit":"취미와 관심","band":"중급"},{"no":82,"id":"I22","pattern":"I'm good at ___.","ko":"나는 ~을 잘해.","unit":"취미와 관심","band":"중급"},{"no":83,"id":"I23","pattern":"I'm interested in ___.","ko":"나는 ~에 관심이 있어.","unit":"취미와 관심","band":"중급"},{"no":84,"id":"I24","pattern":"I enjoy ___ing.","ko":"나는 ~하는 것을 즐겨.","unit":"취미와 관심","band":"중급"},{"no":85,"id":"I25","pattern":"How often do you ___? – ___.","ko":"얼마나 자주 ~하니? – ~번.","unit":"취미와 관심","band":"중급"},{"no":86,"id":"I26","pattern":"I get up at ___.","ko":"나는 ~시에 일어나.","unit":"하루 일과","band":"중급"},{"no":87,"id":"I27","pattern":"What time do you ___?","ko":"몇 시에 ~하니?","unit":"하루 일과","band":"중급"},{"no":88,"id":"I28","pattern":"I usually ___.","ko":"나는 보통 ~해.","unit":"하루 일과","band":"중급"},{"no":89,"id":"I29","pattern":"I always / sometimes / never ___.","ko":"나는 항상 / 가끔 / 절대 ~해.","unit":"하루 일과","band":"중급"},{"no":90,"id":"I30","pattern":"After school, I ___.","ko":"방과 후에 나는 ~해.","unit":"하루 일과","band":"중급"},{"no":91,"id":"I31","pattern":"A is ___er than B.","ko":"A는 B보다 더 ~해.","unit":"비교하기","band":"중급"},{"no":92,"id":"I32","pattern":"___ is the ___est.","ko":"~가 가장 ~해.","unit":"비교하기","band":"중급"},{"no":93,"id":"I33","pattern":"A is more ___ than B.","ko":"A는 B보다 더 ~해(긴 형용사).","unit":"비교하기","band":"중급"},{"no":94,"id":"I34","pattern":"Which is ___, A or B?","ko":"A와 B 중 어느 것이 더 ~해?","unit":"비교하기","band":"중급"},{"no":95,"id":"I35","pattern":"I like A better than B.","ko":"나는 B보다 A가 더 좋아.","unit":"비교하기","band":"중급"},{"no":96,"id":"I36","pattern":"How much is ___? – It's ___ won.","ko":"~는 얼마예요? – ~원이에요.","unit":"쇼핑과 음식","band":"중급"},{"no":97,"id":"I37","pattern":"I'd like ___, please.","ko":"~ 주세요.(주문)","unit":"쇼핑과 음식","band":"중급"},{"no":98,"id":"I38","pattern":"Do you have ___?","ko":"~ 있나요?(가게에서)","unit":"쇼핑과 음식","band":"중급"},{"no":99,"id":"I39","pattern":"It's too ___.","ko":"너무 ~해요.","unit":"쇼핑과 음식","band":"중급"},{"no":100,"id":"I40","pattern":"What would you like to eat? – I'd like to eat ___.","ko":"뭐 먹고 싶어? – ~ 먹고 싶어.","unit":"쇼핑과 음식","band":"중급"},{"no":101,"id":"I41","pattern":"What's the matter? – I have a ___.","ko":"무슨 일이야? – ~가 있어(아파).","unit":"건강과 기분","band":"중급"},{"no":102,"id":"I42","pattern":"My ___ hurts.","ko":"~가 아파.","unit":"건강과 기분","band":"중급"},{"no":103,"id":"I43","pattern":"You look ___.","ko":"너 ~해 보여.","unit":"건강과 기분","band":"중급"},{"no":104,"id":"I44","pattern":"I feel ___.","ko":"나는 ~한 기분이야.","unit":"건강과 기분","band":"중급"},{"no":105,"id":"I45","pattern":"I hope you ___.","ko":"네가 ~하길 바라.","unit":"건강과 기분","band":"중급"},{"no":106,"id":"I46","pattern":"It's next to the ___.","ko":"그건 ~ 옆에 있어.","unit":"길 찾기","band":"중급"},{"no":107,"id":"I47","pattern":"It's across from / between ___.","ko":"~ 건너편에 / ~ 사이에 있어.","unit":"길 찾기","band":"중급"},{"no":108,"id":"I48","pattern":"How can I get to ___?","ko":"~에 어떻게 가나요?","unit":"길 찾기","band":"중급"},{"no":109,"id":"I49","pattern":"Go straight and turn ___.","ko":"직진해서 ~로 도세요.","unit":"길 찾기","band":"중급"},{"no":110,"id":"I50","pattern":"It takes ___.","ko":"~ 걸려요.","unit":"길 찾기","band":"중급"},{"no":111,"id":"I51","pattern":"Why ___? – Because ___.","ko":"왜 ~? – 왜냐하면 ~.","unit":"이유와 의견","band":"중급"},{"no":112,"id":"I52","pattern":"I think ___.","ko":"내 생각에 ~야.","unit":"이유와 의견","band":"중급"},{"no":113,"id":"I53","pattern":"I don't think ___.","ko":"~라고 생각하지 않아.","unit":"이유와 의견","band":"중급"},{"no":114,"id":"I54","pattern":"That sounds ___!","ko":"그거 ~하겠다!(맞장구)","unit":"이유와 의견","band":"중급"},{"no":115,"id":"I55","pattern":"What do you think of ___?","ko":"~에 대해 어떻게 생각해?","unit":"이유와 의견","band":"중급"},{"no":116,"id":"I56","pattern":"What does she look like? – She has ___.","ko":"그녀는 어떻게 생겼어? – ~를 가졌어.","unit":"묘사하기","band":"중급"},{"no":117,"id":"I57","pattern":"He's wearing ___.","ko":"그는 ~를 입고 있어.","unit":"묘사하기","band":"중급"},{"no":118,"id":"I58","pattern":"Whose ___ is this? – It's ___'s.","ko":"이건 누구의 ~야? – ~의 것이야.","unit":"묘사하기","band":"중급"},{"no":119,"id":"I59","pattern":"It's mine / yours / his / hers.","ko":"그건 내 거 / 네 거 / 그의 것 / 그녀의 것이야.","unit":"묘사하기","band":"중급"},{"no":120,"id":"I60","pattern":"It looks like ___.","ko":"그건 ~처럼 보여.","unit":"묘사하기","band":"중급"},{"no":121,"id":"A01","pattern":"Have you ever ___? – Yes, I have. / No, I haven't.","ko":"~해 본 적 있어?","unit":"경험 말하기","band":"고급"},{"no":122,"id":"A02","pattern":"I've ___ before.","ko":"전에 ~해 본 적 있어.","unit":"경험 말하기","band":"고급"},{"no":123,"id":"A03","pattern":"I've never ___.","ko":"한 번도 ~해 본 적 없어.","unit":"경험 말하기","band":"고급"},{"no":124,"id":"A04","pattern":"Have you ___ yet? – Yes, I've already ___.","ko":"벌써 ~했어? – 응, 이미 ~했어.","unit":"경험 말하기","band":"고급"},{"no":125,"id":"A05","pattern":"How long have you ___? – For / Since ___.","ko":"얼마나 오래 ~해 왔어?","unit":"경험 말하기","band":"고급"},{"no":126,"id":"A06","pattern":"If ___, I'll ___.","ko":"만약 ~하면, 나는 ~할 거야.","unit":"만약에","band":"고급"},{"no":127,"id":"A07","pattern":"What will you do if ___?","ko":"만약 ~하면 뭐 할 거야?","unit":"만약에","band":"고급"},{"no":128,"id":"A08","pattern":"If I were ___, I would ___.","ko":"만약 내가 ~라면, ~할 텐데.(상상)","unit":"만약에","band":"고급"},{"no":129,"id":"A09","pattern":"What would you do if you ___?","ko":"만약 ~라면 뭘 할 거야?(상상)","unit":"만약에","band":"고급"},{"no":130,"id":"A10","pattern":"I wish I could ___.","ko":"~할 수 있으면 좋겠어.","unit":"만약에","band":"고급"},{"no":131,"id":"A11","pattern":"I was ___ing when ___.","ko":"~하고 있을 때 …했어.","unit":"이야기하기","band":"고급"},{"no":132,"id":"A12","pattern":"What were you doing ___? – I was ___ing.","ko":"~에 뭐 하고 있었어?","unit":"이야기하기","band":"고급"},{"no":133,"id":"A13","pattern":"First, ___. Then, ___. Finally, ___.","ko":"먼저 ~, 그다음 ~, 마지막으로 ~.","unit":"이야기하기","band":"고급"},{"no":134,"id":"A14","pattern":"While I was ___ing, ___.","ko":"~하는 동안 …했어.","unit":"이야기하기","band":"고급"},{"no":135,"id":"A15","pattern":"Suddenly, ___!","ko":"갑자기 ~했어!","unit":"이야기하기","band":"고급"},{"no":136,"id":"A16","pattern":"In my opinion, ___.","ko":"내 의견으로는 ~야.","unit":"의견 말하기","band":"고급"},{"no":137,"id":"A17","pattern":"I agree. / I disagree because ___.","ko":"동의해. / ~라서 동의하지 않아.","unit":"의견 말하기","band":"고급"},{"no":138,"id":"A18","pattern":"I prefer A to B.","ko":"나는 B보다 A를 더 좋아해.","unit":"의견 말하기","band":"고급"},{"no":139,"id":"A19","pattern":"The best thing about ___ is ___.","ko":"~의 가장 좋은 점은 …야.","unit":"의견 말하기","band":"고급"},{"no":140,"id":"A20","pattern":"It's important to ___.","ko":"~하는 것이 중요해.","unit":"의견 말하기","band":"고급"},{"no":141,"id":"A21","pattern":"Do you mind if I ___? – Not at all.","ko":"~해도 괜찮을까요? – 전혀요.","unit":"공손하게 말하기","band":"고급"},{"no":142,"id":"A22","pattern":"Would you mind ___ing?","ko":"~해 주시겠어요?(매우 공손)","unit":"공손하게 말하기","band":"고급"},{"no":143,"id":"A23","pattern":"Could you tell me ___?","ko":"~를 알려 주시겠어요?","unit":"공손하게 말하기","band":"고급"},{"no":144,"id":"A24","pattern":"I was wondering if ___.","ko":"혹시 ~할 수 있을까 해서요.","unit":"공손하게 말하기","band":"고급"},{"no":145,"id":"A25","pattern":"Is there anything ___?","ko":"~할 게 있나요?","unit":"공손하게 말하기","band":"고급"},{"no":146,"id":"A26","pattern":"I want to be ___ when I grow up.","ko":"커서 ~가 되고 싶어.","unit":"꿈과 미래","band":"고급"},{"no":147,"id":"A27","pattern":"I'd like to ___ someday.","ko":"언젠가 ~하고 싶어.","unit":"꿈과 미래","band":"고급"},{"no":148,"id":"A28","pattern":"I'm planning to ___.","ko":"~할 계획이야.","unit":"꿈과 미래","band":"고급"},{"no":149,"id":"A29","pattern":"My dream is to ___.","ko":"내 꿈은 ~하는 거야.","unit":"꿈과 미래","band":"고급"},{"no":150,"id":"A30","pattern":"To be ___, I need to ___.","ko":"~가 되려면 ~해야 해.","unit":"꿈과 미래","band":"고급"},{"no":151,"id":"A31","pattern":"___ makes me ___.","ko":"~는 나를 …하게 해.","unit":"마음 표현","band":"고급"},{"no":152,"id":"A32","pattern":"I'm worried about ___.","ko":"~가 걱정돼.","unit":"마음 표현","band":"고급"},{"no":153,"id":"A33","pattern":"I'm looking forward to ___.","ko":"~이 정말 기대돼.","unit":"마음 표현","band":"고급"},{"no":154,"id":"A34","pattern":"I'm proud of ___.","ko":"나는 ~가 자랑스러워.","unit":"마음 표현","band":"고급"},{"no":155,"id":"A35","pattern":"It was so ___ that ___.","ko":"너무 ~해서 …했어.","unit":"마음 표현","band":"고급"},{"no":156,"id":"A36","pattern":"It's too ___ to ___.","ko":"너무 ~해서 …할 수 없어.","unit":"정도와 비교","band":"고급"},{"no":157,"id":"A37","pattern":"I'm ___ enough to ___.","ko":"나는 ~할 만큼 충분히 …해.","unit":"정도와 비교","band":"고급"},{"no":158,"id":"A38","pattern":"Both A and B ___.","ko":"A와 B 둘 다 ~해.","unit":"정도와 비교","band":"고급"},{"no":159,"id":"A39","pattern":"We can either ___ or ___.","ko":"~하거나 …할 수 있어.","unit":"정도와 비교","band":"고급"},{"no":160,"id":"A40","pattern":"A is as ___ as B.","ko":"A는 B만큼 ~해.","unit":"정도와 비교","band":"고급"},{"no":161,"id":"A41","pattern":"This is the ___ that / who ___.","ko":"이게 ~한 …야.","unit":"자세히 설명하기","band":"고급"},{"no":162,"id":"A42","pattern":"Do you know ___?","ko":"~인지 알아?","unit":"자세히 설명하기","band":"고급"},{"no":163,"id":"A43","pattern":"I don't know ___.","ko":"~를 모르겠어.(어떻게·무엇을 ~할지)","unit":"자세히 설명하기","band":"고급"},{"no":164,"id":"A44","pattern":"It's used for ___.","ko":"그건 ~하는 데 쓰여.","unit":"자세히 설명하기","band":"고급"},{"no":165,"id":"A45","pattern":"It's something you ___.","ko":"그건 네가 ~하는 거야.(수수께끼)","unit":"자세히 설명하기","band":"고급"},{"no":166,"id":"A46","pattern":"Tell me about ___.","ko":"~에 대해 말해 줘.","unit":"대화 이어가기","band":"고급"},{"no":167,"id":"A47","pattern":"What does ___ mean?","ko":"~는 무슨 뜻이야?","unit":"대화 이어가기","band":"고급"},{"no":168,"id":"A48","pattern":"Let me ___.","ko":"내가 ~할게.","unit":"대화 이어가기","band":"고급"},{"no":169,"id":"A49","pattern":"How about ___ing?","ko":"~하는 게 어때?","unit":"대화 이어가기","band":"고급"},{"no":170,"id":"A50","pattern":"Why don't we ___?","ko":"우리 ~하는 게 어때?","unit":"대화 이어가기","band":"고급"},{"no":171,"id":"A51","pattern":"We should ___ to save the Earth.","ko":"지구를 지키려면 ~해야 해.","unit":"세상과 환경","band":"고급"},{"no":172,"id":"A52","pattern":"There are many ___ in ___.","ko":"~에는 …가 많이 있어.","unit":"세상과 환경","band":"고급"},{"no":173,"id":"A53","pattern":"___ is famous for ___.","ko":"~는 …로 유명해.","unit":"세상과 환경","band":"고급"},{"no":174,"id":"A54","pattern":"People say ___.","ko":"사람들은 ~라고 말해.(속담·말)","unit":"세상과 환경","band":"고급"},{"no":175,"id":"A55","pattern":"___ is made from ___.","ko":"~는 …로 만들어져.","unit":"세상과 환경","band":"고급"},{"no":176,"id":"A56","pattern":"Let me introduce ___.","ko":"~를 소개할게요.","unit":"발표하기","band":"고급"},{"no":177,"id":"A57","pattern":"I'd like to talk about ___.","ko":"~에 대해 이야기하고 싶어요.","unit":"발표하기","band":"고급"},{"no":178,"id":"A58","pattern":"There are three reasons. First, ___.","ko":"이유가 세 가지 있어요. 첫째, ~.","unit":"발표하기","band":"고급"},{"no":179,"id":"A59","pattern":"For example, ___.","ko":"예를 들어, ~.","unit":"발표하기","band":"고급"},{"no":180,"id":"A60","pattern":"In conclusion, ___. Thank you for listening.","ko":"결론적으로, ~. 들어 주셔서 감사합니다.","unit":"발표하기","band":"고급"}];        // [{no,id,pattern,ko,unit,band}] 180개
+var STAGES = [
+  { to: 0,   pic:'🥚', name:'준비 단계', cefr:'시작 전', can:'영어 인사말을 듣고 따라 할 수 있어요.' },
+  { to: 30,  pic:'🌱', name:'새싹 단계', cefr:'Pre A1 (Starters 초반)', can:'인사·자기소개를 하고, 물건 이름과 좋고 싫은 것을 한 문장으로 말할 수 있어요.' },
+  { to: 60,  pic:'🌿', name:'새잎 단계', cefr:'Pre A1 (Starters)', can:'위치·숫자·시간·날씨·하루 생활을 짧게 묻고 대답할 수 있어요.' },
+  { to: 90,  pic:'🌳', name:'나무 단계', cefr:'A1 (Movers 초반)', can:'지난 일과 앞으로의 계획을 말하고, 부탁하거나 허락을 구할 수 있어요.' },
+  { to: 120, pic:'🍎', name:'열매 단계', cefr:'A1 (Movers)', can:'비교하기·쇼핑·아픈 곳·길 찾기를 말하고, 이유와 내 생각을 덧붙일 수 있어요.' },
+  { to: 150, pic:'🦅', name:'독수리 단계', cefr:'A2 (Flyers 초반)', can:'경험과 상상(만약에)을 말하고, 이야기를 순서대로 들려주며 공손하게 부탁할 수 있어요.' },
+  { to: 180, pic:'🚀', name:'로켓 단계', cefr:'A2 (Flyers)', can:'꿈과 감정을 자세히 설명하고, 의견을 주고받으며 1분 발표를 할 수 있어요.' }
+];
+function stageOf(lv){ for (var i=0;i<STAGES.length;i++) if (lv <= STAGES[i].to) return STAGES[i]; return STAGES[STAGES.length-1]; }
+function patOf(no){ return PATS[no-1] || null; }
+function bandOf(no){ return no <= 60 ? '초급' : no <= 120 ? '중급' : '고급'; }
+
+var CFG = { classes: {} }, T = { pin:'', cls:'', data:null, sort:['status', 1], filter:'all' };
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function toast(m){ var t = document.createElement('div'); t.className='toast'; t.textContent = m; document.body.appendChild(t); setTimeout(function(){ t.remove(); }, 2200); }
+function today(){ var d = new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function dateAdd(s, n){ var d = new Date(s + 'T00:00:00'); d.setDate(d.getDate() + n); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function daysSince(s){ return s ? Math.floor((new Date(today()) - new Date(s)) / 86400000) : null; }
+function md(s){ return s ? s.slice(5).replace('-', '/') : '–'; }
+function sunny(size){ var rays=''; for (var i=0;i<8;i++) rays += '<rect x="56" y="0" width="8" height="17" rx="4" fill="#FFB300" transform="rotate('+(i*45)+' 60 60)"/>';
+  return '<svg class="sunny" viewBox="0 0 120 120" width="'+size+'" height="'+size+'"><g class="rays">'+rays+'</g><circle cx="60" cy="60" r="36" fill="#FFD23F" stroke="#F2A900" stroke-width="3"/><circle cx="42" cy="68" r="5.5" fill="#FF9E9E" opacity=".75"/><circle cx="78" cy="68" r="5.5" fill="#FF9E9E" opacity=".75"/><ellipse cx="48" cy="56" rx="5" ry="6.5" fill="#2b2b2b"/><ellipse cx="72" cy="56" rx="5" ry="6.5" fill="#2b2b2b"/><circle cx="49.5" cy="54" r="1.8" fill="#fff"/><circle cx="73.5" cy="54" r="1.8" fill="#fff"/><path d="M49 70 q11 11 22 0" stroke="#8B2E2E" stroke-width="3.5" stroke-linecap="round" fill="none"/></svg>'; }
+
+/* ───── 서버 ───── */
+/* 서버 주소 찾기: ① APPS_SCRIPT_URL ② 같은 폴더의 server.txt ③ 같은 폴더의 index.html(녹음숙제 앱) */
+var EXEC_RE = /https:\/\/script\.google\.com\/(?:a\/macros\/[^\/\s"']+|macros)\/s\/[A-Za-z0-9_-]+\/exec/;
+async function findServer(){
+  if (APPS_SCRIPT_URL) return;
+  try { var r = await fetch('server.txt', { cache:'no-store' }); if (r.ok) { var m0 = (await r.text()).match(EXEC_RE); if (m0) { APPS_SCRIPT_URL = m0[0]; return; } } } catch(e){}
+  try { var t = await (await fetch('index.html', { cache:'no-store' })).text(); var m = t.match(/APPS_SCRIPT_URL\s*=\s*"([^"]*)"/); if (m && /\/exec$/.test(m[1])) APPS_SCRIPT_URL = m[1]; } catch(e){}
+}
+async function api(params){ var q = Object.keys(params).map(function(k){ return k+'='+encodeURIComponent(params[k]); }).join('&'); return (await fetch(APPS_SCRIPT_URL + '?' + q, { redirect:'follow' })).json(); }
+async function post(body){ return (await fetch(APPS_SCRIPT_URL, { method:'POST', redirect:'follow', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(body) })).json(); }
+
+async function init(){
+  $('logoSun').innerHTML = sunny(40); $('loginSun').innerHTML = sunny(80);
+  await findServer();
+  if (!APPS_SCRIPT_URL) { $('clsGrid').innerHTML = '<span style="color:var(--bad);font-weight:800">⚠ 서버 주소를 찾지 못했어요. teacher.html 을 index.html(녹음숙제 앱)과 같은 저장소에 올리거나, server.txt 에 Apps Script 웹 앱 주소(…/exec)를 넣어 함께 올려 주세요.</span>'; return; }
+  try { var c = await api({ action:'config' }); if (c && c.classes) CFG = c; } catch(e){ $('clsGrid').innerHTML = '<span style="color:var(--bad);font-weight:800">⚠ 서버 연결 실패 — 인터넷을 확인하세요.</span>'; return; }
+  try { var last = JSON.parse(sessionStorage.getItem('t_last') || 'null'); if (last) { T.cls = last.cls; T.pin = last.pin; $('pin').value = last.pin; } } catch(e){}
+  renderClassGrid();
+  $('pin').onkeydown = function(e){ if (e.key === 'Enter') login(); };
+}
+function renderClassGrid(){
+  var g = $('clsGrid'); g.innerHTML = '';
+  Object.keys(CFG.classes).forEach(function(c){
+    var b = document.createElement('button'); b.className = c === T.cls ? 'on' : '';
+    b.innerHTML = esc(c) + '<small>' + CFG.classes[c].length + '명</small>'; b.onclick = function(){ T.cls = c; renderClassGrid(); };
+    g.appendChild(b);
+  });
+  if (!g.children.length) g.innerHTML = '<span class="muted sm">시트 「학생」 탭에 학생이 없어요.</span>';
+}
+async function login(){
+  T.pin = $('pin').value.trim();
+  if (!T.pin) { $('loginMsg').textContent = '비밀번호를 입력하세요.'; return; }
+  if (!T.cls) { $('loginMsg').textContent = '반을 고르세요.'; return; }
+  $('loginMsg').textContent = ''; await loadClass();
+}
+function logout(){ T.pin = ''; T.data = null; try { sessionStorage.removeItem('t_last'); } catch(e){} ['clsChip','btnReload','btnBack','btnOut'].forEach(function(i){ $(i).classList.add('hidden'); }); show('sLogin'); }
+function show(id){ ['sLogin','sClass','sStudent','sReport'].forEach(function(s){ $(s).classList.toggle('hidden', s !== id); }); $('btnBack').classList.toggle('hidden', id === 'sClass' || id === 'sLogin'); window.scrollTo(0, 0); }
+
+async function loadClass(silent){
+  if (!silent) toast('불러오는 중…');
+  try {
+    var r = await api({ action:'tclass', pin: T.pin, cls: T.cls });
+    if (!r.ok) { $('loginMsg').textContent = r.error || '오류'; show('sLogin'); return; }
+    T.data = r; r.students.forEach(derive);
+    try { sessionStorage.setItem('t_last', JSON.stringify({ cls: T.cls, pin: T.pin })); } catch(e){}
+    $('clsChip').textContent = '🏫 ' + T.cls + ' · ' + r.students.length + '명'; ['clsChip','btnReload','btnOut'].forEach(function(i){ $(i).classList.remove('hidden'); });
+    showClass();
+  } catch(e){ $('loginMsg').textContent = '서버 연결 실패 — 잠시 뒤 다시 시도하세요.'; show('sLogin'); }
+}
+
+/* ───── 학생별 계산 ───── */
+function derive(s){
+  s.lt = s.lts.length ? s.lts[s.lts.length-1] : null; s.ltPrev = s.lts.length > 1 ? s.lts[s.lts.length-2] : null;
+  s.maxDone = s.done.length ? Math.max.apply(null, s.done) : 0;
+  s.days = s.last ? daysSince(s.last) : null;
+  s.status = s.days == null ? 'n' : s.days <= 3 ? 'g' : s.days <= 7 ? 'y' : 'r';
+  var sc = s.scores.slice(-30); s.avg = sc.length ? Math.round(sc.reduce(function(a, b){ return a + b.s; }, 0) / sc.length) : null;
+  // 복습 밀림: 완료 날짜 기준 3·7·14일 규칙
+  var gaps = [3, 7, 14], due = 0, keys = Object.keys(s.doneDates);
+  keys.forEach(function(no){ var ds = s.doneDates[no].slice().sort(), r = ds.length - 1; if (r >= 3) return; if (daysSince(ds[ds.length-1]) >= gaps[r] - (r ? gaps[r-1] : 0)) due++; });
+  s.reviewDue = due;
+  // 최근 8주 완료 수
+  var t = new Date(today() + 'T00:00:00'), dow = (t.getDay() + 6) % 7, mon = dateAdd(today(), -dow); s.weeks = [];
+  for (var i = 7; i >= 0; i--) { var a = dateAdd(mon, -7*i), b = dateAdd(a, 6), n = 0; keys.forEach(function(no){ s.doneDates[no].forEach(function(d){ if (d >= a && d <= b) n++; }); }); s.weeks.push({ s:a, e:b, c:n }); }
+  s.last28 = 0; var d28 = dateAdd(today(), -28); keys.forEach(function(no){ s.doneDates[no].forEach(function(d){ if (d >= d28) s.last28++; }); });
+  // 최근 배운 패턴(최신순)
+  s.recentPats = keys.map(function(no){ return { no: Number(no), d: s.doneDates[no].slice().sort().slice(-1)[0] }; }).sort(function(a, b){ return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
+  s.skill = s.lt ? Math.max(1, s.lt.lv) : null;
+  s.mis = s.mis || { ok:0, snd:0, warn:0, bad:0, pending:0 }; s.misW = s.misW || { ok:0, snd:0, warn:0, bad:0, pending:0 };
+  s.mis.snd = s.mis.snd || 0; s.misW.snd = s.misW.snd || 0;   // 예전 서버 코드와도 호환
+  s.misFlag = s.mis.warn + s.mis.bad + s.mis.pending;   // 30일 안에 선생님이 꼭 들어 봐야 할 미션 수 (🔈는 몇 개만 골라 듣기)
+  // 🔈 무료 기본 점검: 녹음에서 목소리가 들린 비율(최근 30일, 패턴 완료·반복 연습)
+  s.recN = s.recN || 0; s.recOk = s.recOk || 0; s.recRate = s.recN ? Math.round(100 * s.recOk / s.recN) : null;
+  s.advice = advise(s);
+}
+/* 지도 방안 자동 제안 */
+function advise(s){
+  var out = [], lv = s.skill, n = s.doneN;
+  if (s.days == null) { out.push(['todo', '📝', '아직 학습 기록이 없어요. 첫 시간에 「단계 진단」(선생님과 7분) 또는 「레벨 테스트」(혼자 6분)로 시작 Level을 정해 주세요.']); return out; }
+  if (s.days >= 8) out.push(['warn', '⏰', s.days + '일째 학습이 없어요. 태블릿 시간 배정을 확인하고, 다음 등원 때 10분 학습을 꼭 챙겨 주세요.']);
+  else if (s.days >= 4) out.push(['info', '👀', s.days + '일 동안 학습이 없어요. 오늘 한 패턴만 해도 연속 학습이 이어져요.']);
+  if (s.wk[0] + s.wk[1] < 3 && n > 0 && s.days < 8) out.push(['info', '📅', '최근 2주 완료 ' + (s.wk[0] + s.wk[1]) + '개 — 주 3회(패턴 3개) 이상을 목표로 해 주세요.']);
+  if (s.reviewDue >= 3) out.push(['info', '🔁', '복습이 ' + s.reviewDue + '개 밀려 있어요. 홈 화면 「복습할 패턴」부터 하도록 안내해 주세요.']);
+  if (s.avg != null && s.avg < 70) out.push(['warn', '🎤', '최근 발음 평균 ' + s.avg + '점. 「🔁 반복 연습」으로 같은 문장을 12번 따라 말하게 해 주세요.' + (s.weak.length ? ' 자주 틀리는 단어: ' + s.weak.slice(0, 4).map(function(w){ return w[0]; }).join(', ') : '')]);
+  else if (s.avg != null && s.avg >= 85) out.push(['good', '🌟', '발음 평균 ' + s.avg + '점으로 아주 좋아요. 칭찬해 주세요!']);
+  // 🔈 무료 기본 점검(소리 크기·말한 시간) — Azure 없이도 동작
+  if (s.recRate != null && s.recN >= 10 && s.recRate < 70) out.push(['warn', '🎧', '최근 30일 말하기 녹음 ' + s.recN + '번 중 ' + (s.recN - s.recOk) + '번은 소리가 거의 안 들렸어요(목소리 확인 ' + s.recRate + '%). 헤드셋 마이크 연결을 확인하고, 실제로 소리 내어 말하는지 한 번 지켜봐 주세요.']);
+  else if (s.avg == null && s.recRate != null && s.recN >= 20 && s.recRate >= 90) out.push(['good', '🗣️', '녹음할 때마다 목소리가 잘 들려요(목소리 확인 ' + s.recRate + '%). 열심히 소리 내어 말하고 있어요 — 칭찬해 주세요!']);
+  if (s.mis.bad >= 2) out.push(['warn', '🏆', '미션 녹음이 ❌(패턴이 안 들림·소리 없음)인 적이 ' + s.mis.bad + '번이에요. 「나만의 문장」은 오늘 패턴을 꼭 넣어 소리 내어 말하도록 한 번 시범을 보여 주세요.']);
+  if (s.mis.warn + s.mis.pending >= 1) out.push(['info', '🎧', '선생님이 들어 봐야 할 미션 녹음이 ' + (s.mis.warn + s.mis.pending) + '개 있어요(⚠️ 확인 · ⏳ 자동 점검 안 됨). 아래 「미션 녹음」에서 ▶로 들어 보세요.']);
+  if (s.mis.snd >= 1) out.push(['info', '🔈', '목소리만 확인된 미션 녹음이 ' + s.mis.snd + '개 있어요(🔈 내용은 아직 자동 점검 안 됨). 전부 들을 필요는 없고, 아래 「미션 녹음」에서 1~2개만 골라 들어 보세요.']);
+  if (s.mis.ok >= 3 && !s.mis.bad) out.push(['good', '🏆', '미션 녹음 ' + s.mis.ok + '개가 자동 점검을 모두 통과했어요. 들어 보지 않아도 괜찮아요.']);
+  if (!s.lt) out.push(['todo', '🎯', '레벨 테스트 기록이 없어요. 실력 Level을 알면 추천 Level과 성장 그래프가 생겨요.']);
+  else if (daysSince(s.lt.d) >= 30) out.push(['todo', '🎯', '레벨 테스트를 본 지 ' + daysSince(s.lt.d) + '일이 지났어요. 한 달에 한 번 다시 보면 성장이 보여요.']);
+  if (lv && s.maxDone && lv >= s.maxDone + 15) out.push(['info', '⤴️', '실력(Level ' + lv + ')이 진도(Level ' + s.maxDone + ')보다 앞서요. 레벨 지도에서 Level ' + (lv + 1) + ' 근처부터 공부하도록 「시작 Level」을 올려 주세요.']);
+  if (lv && s.maxDone >= lv + 15) out.push(['info', '⤵️', '진도(Level ' + s.maxDone + ')가 실력(Level ' + lv + ')보다 많이 앞서요. 복습·반복 연습으로 다진 뒤 진도를 나가게 해 주세요.']);
+  if (n >= 60 && s.level === '초급') out.push(['todo', '🎓', '초급편 60패턴을 모두 마쳤어요. 중급편으로 올릴지 검토해 주세요.']);
+  if (n >= 120 && s.level === '중급') out.push(['todo', '🎓', '중급편을 모두 마쳤어요. 고급편으로 올릴지 검토해 주세요.']);
+  if (s.ltPrev && s.lt && s.lt.lv - s.ltPrev.lv >= 10) out.push(['good', '🚀', '레벨 테스트가 지난번보다 +' + (s.lt.lv - s.ltPrev.lv) + ' 올랐어요!']);
+  if (s.wk[0] >= 3) out.push(['good', '🔥', '이번 주 벌써 ' + s.wk[0] + '개 완료! 꾸준함을 칭찬해 주세요.']);
+  if (!out.length) out.push(['good', '👍', '꾸준히 잘 하고 있어요. 지금처럼 하루 10분을 이어 가게 해 주세요.']);
+  return out;
+}
+
+/* 발음(Azure) 점수가 없으면 🔈 목소리 확인율(무료 기본 점검)로 대신 보여 줌 */
+function pronVal(s){ return s.avg != null ? s.avg : s.recRate != null ? s.recRate : -1; }
+function recCol(v){ return v >= 90 ? 'var(--mint2)' : v >= 70 ? 'var(--warn)' : 'var(--bad)'; }
+function pronCell(s){
+  if (s.avg != null) return '<b style="color:' + (s.avg >= 85 ? 'var(--mint2)' : s.avg >= 70 ? 'var(--warn)' : 'var(--bad)') + '">' + s.avg + '</b>';
+  if (s.recRate != null) return '<span title="녹음에서 목소리가 들린 비율 (최근 30일 ' + s.recOk + '/' + s.recN + '번)" style="font-weight:900;color:' + recCol(s.recRate) + '">🔈' + s.recRate + '%</span>';
+  return '<span class="muted">–</span>';
+}
+var MIS_IC = { ok:'✅', snd:'🔈', warn:'⚠️', bad:'❌', pending:'⏳' }, MIS_COL = { ok:'var(--mint2)', snd:'var(--sky2)', warn:'var(--warn)', bad:'var(--bad)', pending:'var(--muted)' };
+function misCell(m){
+  var h = ['ok','snd','warn','bad','pending'].filter(function(k){ return m[k]; }).map(function(k){ return '<span style="color:' + MIS_COL[k] + ';font-weight:900">' + MIS_IC[k] + m[k] + '</span>'; }).join(' ');
+  return h || '<span class="muted">–</span>';
+}
+
+/* ───── 반 현황 ───── */
+function filtered(){
+  var ss = T.data.students.slice(), f = T.filter;
+  if (f === 'week0') ss = ss.filter(function(s){ return !s.wk[0]; });
+  if (f === 'r') ss = ss.filter(function(s){ return s.status === 'r'; });
+  if (f === 'review') ss = ss.filter(function(s){ return s.reviewDue >= 3; });
+  if (f === 'pron') ss = ss.filter(function(s){ return s.avg != null ? s.avg < 70 : (s.recRate != null && s.recN >= 10 && s.recRate < 70); });
+  if (f === 'nolt') ss = ss.filter(function(s){ return !s.lt; });
+  if (f === 'mis') ss = ss.filter(function(s){ return s.misFlag > 0; });
+  var k = T.sort[0], dir = T.sort[1], ord = { g:0, y:1, r:2, n:3 };
+  ss.sort(function(a, b){
+    var x = k === 'status' ? ord[a.status] : k === 'name' ? a.name : k === 'skill' ? (a.skill||0) : k === 'done' ? a.doneN : k === 'stars' ? a.stars : k === 'wk' ? a.wk[0] : k === 'last' ? (a.last||'') : k === 'avg' ? pronVal(a) : k === 'mis' ? a.misFlag : 0;
+    var y = k === 'status' ? ord[b.status] : k === 'name' ? b.name : k === 'skill' ? (b.skill||0) : k === 'done' ? b.doneN : k === 'stars' ? b.stars : k === 'wk' ? b.wk[0] : k === 'last' ? (b.last||'') : k === 'avg' ? pronVal(b) : k === 'mis' ? b.misFlag : 0;
+    return (x < y ? -1 : x > y ? 1 : 0) * dir || (a.name < b.name ? -1 : 1);
+  });
+  return ss;
+}
+function showClass(){
+  var ss = T.data.students, n = ss.length, act = ss.filter(function(s){ return s.wk[0] > 0; }).length, red = ss.filter(function(s){ return s.status === 'r'; }).length;
+  var withLt = ss.filter(function(s){ return s.skill; }), avgLv = withLt.length ? Math.round(withLt.reduce(function(a, s){ return a + s.skill; }, 0) / withLt.length) : null;
+  var avgDone = n ? Math.round(ss.reduce(function(a, s){ return a + s.doneN; }, 0) / n * 10) / 10 : 0, weekDone = ss.reduce(function(a, s){ return a + s.wk[0]; }, 0);
+  var mw = { ok:0, snd:0, warn:0, bad:0, pending:0 }; ss.forEach(function(s){ ['ok','snd','warn','bad','pending'].forEach(function(k){ mw[k] += s.misW[k] || 0; }); });
+  var mwNeed = mw.warn + mw.bad + mw.pending, sc = T.data.scoringOn;
+  var mwHtml = [['ok','var(--mint2)', mw.ok || sc], ['snd','var(--sky2)', mw.snd || !sc], ['warn','var(--warn)', true], ['bad','var(--bad)', true], ['pending','var(--muted)', mw.pending]]
+    .filter(function(x){ return x[2]; }).map(function(x){ return '<span style="color:' + x[1] + '">' + MIS_IC[x[0]] + ' ' + mw[x[0]] + '</span>'; }).join(' ');
+  var mwSub = mwNeed ? '⚠️·❌·⏳만 들어 보면 돼요' + (mw.snd ? ' · 🔈는 몇 개만' : '') : mw.snd ? '🔈 목소리 확인됨 — 몇 개만 골라 들어 보세요' : '들어 볼 녹음이 없어요 👍';
+  $('tiles').innerHTML = '<div class="tile"><div class="l">👧 학생</div><div class="v">' + n + '<span class="muted" style="font-size:.5em"> 명</span></div></div>' +
+    '<div class="tile"><div class="l">📅 이번 주 학습한 학생</div><div class="v" style="color:var(--mint2)">' + act + '<span class="muted" style="font-size:.5em"> / ' + n + '</span></div></div>' +
+    '<div class="tile' + (red ? ' warn' : '') + '"><div class="l">🔴 8일 이상 안 한 학생</div><div class="v">' + red + '<span class="muted" style="font-size:.5em"> 명</span></div></div>' +
+    '<div class="tile"><div class="l">🎯 반 평균 실력</div><div class="v en" style="color:var(--grape)">' + (avgLv ? 'Lv ' + avgLv : '–') + '</div><div class="xs muted">레벨 테스트 ' + withLt.length + '명</div></div>' +
+    '<div class="tile"><div class="l">📚 이번 주 완료 패턴</div><div class="v">' + weekDone + '<span class="muted" style="font-size:.5em"> 개</span></div><div class="xs muted">1인 평균 누적 ' + avgDone + '개</div></div>' +
+    '<div class="tile' + (mwNeed ? ' warn' : '') + '"><div class="l">🏆 미션 자동 점검 (이번 주)</div><div class="v" style="font-size:1.2em">' + mwHtml + '</div><div class="xs muted">' + mwSub + '</div></div>';
+  $('clsTitle').textContent = '📋 ' + T.cls + ' 현황 · ' + today();
+  var fs = [['all','전체'],['week0','이번 주 안 함'],['r','🔴 8일 이상'],['review','🔁 복습 밀림'],['pron', sc ? '🎤 발음 70점 미만' : '🎧 목소리 확인 70% 미만'],['mis','🎧 미션 확인 필요'],['nolt','🎯 레벨테스트 없음']];
+  $('filters').innerHTML = fs.map(function(f){ return '<button class="fchip' + (T.filter === f[0] ? ' on' : '') + '" onclick="T.filter=\'' + f[0] + '\';showClass()">' + f[1] + '</button>'; }).join('');
+  var cols = [['status','상태'],['name','이름'],['level','단계'],['skill','실력 Level'],['done','완료 패턴'],['stars','⭐ 별'],['wk','이번 주'],['last','마지막 학습'],['avg', sc ? '발음' : '말하기'],['mis','미션(30일)'],['review','복습 밀림'],['','']];
+  var html = '<tr>' + cols.map(function(c){ return '<th' + (c[0] && T.sort[0] === c[0] ? ' class="s"' : '') + (c[0] ? ' onclick="sortBy(\'' + c[0] + '\')"' : '') + '>' + c[1] + (c[0] && T.sort[0] === c[0] ? (T.sort[1] > 0 ? ' ▲' : ' ▼') : '') + '</th>'; }).join('') + '</tr>';
+  filtered().forEach(function(s){
+    var stText = { g:'🟢 ' + (s.days === 0 ? '오늘' : s.days + '일 전'), y:'🟡 ' + s.days + '일 전', r:'🔴 ' + s.days + '일 전', n:'⚪ 시작 전' }[s.status];
+    html += '<tr><td><span class="st ' + s.status + '">' + stText + '</span></td>' +
+      '<td class="nm" onclick="openStudent(\'' + esc(s.name) + '\')"><span>' + (s.avatar || '🙂') + '</span>' + esc(s.name) + '</td>' +
+      '<td>' + (s.level || '<span class="muted">–</span>') + '</td>' +
+      '<td class="en">' + (s.skill ? 'Lv ' + s.skill + (s.ltPrev ? ' <span class="xs" style="color:' + (s.lt.lv >= s.ltPrev.lv ? 'var(--mint2)' : 'var(--bad)') + '">' + (s.lt.lv - s.ltPrev.lv >= 0 ? '+' : '') + (s.lt.lv - s.ltPrev.lv) + '</span>' : '') : '<span class="muted">–</span>') + '</td>' +
+      '<td><span class="mini"><i style="width:' + Math.round(100 * s.doneN / 180) + '%"></i></span> <b>' + s.doneN + '</b><span class="muted xs"> · Lv' + (s.maxDone || 0) + '</span></td>' +
+      '<td>⭐ ' + s.stars + '</td><td>' + (s.wk[0] ? '<b>' + s.wk[0] + '</b>' : '<span class="muted">0</span>') + '<span class="muted xs"> (지난주 ' + s.wk[1] + ')</span></td>' +
+      '<td>' + (s.last ? md(s.last) : '–') + '</td><td>' + pronCell(s) + '</td>' +
+      '<td>' + misCell(s.mis) + '</td>' +
+      '<td>' + (s.reviewDue ? '<b style="color:' + (s.reviewDue >= 3 ? 'var(--bad)' : 'var(--ink)') + '">' + (s.reviewDue > 20 ? '20+' : s.reviewDue) + '</b>' : '<span class="muted">0</span>') + '</td>' +
+      '<td><button class="btn gray sm" onclick="openStudent(\'' + esc(s.name) + '\')">상세</button> <button class="btn sm" onclick="openReport([\'' + esc(s.name) + '\'])">리포트</button></td></tr>';
+  });
+  $('tbl').innerHTML = html; show('sClass');
+}
+function sortBy(k){ T.sort = T.sort[0] === k ? [k, -T.sort[1]] : [k, k === 'name' || k === 'status' ? 1 : -1]; showClass(); }
+
+/* ───── 학생 상세 ───── */
+function stu(name){ return T.data.students.filter(function(s){ return s.name === name; })[0]; }
+function openStudent(name){
+  var s = stu(name); if (!s) return;
+  var st = stageOf(s.skill || s.maxDone || 0);
+  var html = '<div class="card"><div class="shead"><div class="av">' + (s.avatar || '🙂') + '</div><div style="flex:1;min-width:0"><div style="font-weight:900;font-size:1.3em">' + esc(s.name) + ' <span class="muted sm">' + esc(T.cls) + '</span></div>' +
+      '<span class="badge">' + (s.level || '단계 미정') + '</span>' + (s.skill ? '<span class="badge gold">🎯 실력 Level ' + s.skill + '</span>' : '') + '<span class="badge mint">' + st.pic + ' ' + st.name + ' · ' + st.cefr + '</span>' +
+      (s.pl ? '<span class="badge" style="background:#EEF1F7;color:#4B5675">📝 진단 ' + md(s.pl.d) + ' → ' + s.pl.level + '</span>' : '') + '</div>' +
+      '<div class="row"><button class="btn green" onclick="openReport([\'' + esc(s.name) + '\'])">📄 상담 리포트</button></div></div></div>' +
+    '<div class="tiles" style="grid-template-columns:repeat(6,1fr)">' +
+      '<div class="tile"><div class="l">📚 완료 패턴</div><div class="v">' + s.doneN + '<span class="muted" style="font-size:.5em"> / 180</span></div><div class="xs muted">최고 Level ' + (s.maxDone || '–') + '</div></div>' +
+      '<div class="tile"><div class="l">⭐ 별</div><div class="v" style="color:#c98a00">' + s.stars + '</div></div>' +
+      '<div class="tile"><div class="l">📅 이번 주 / 지난주</div><div class="v">' + s.wk[0] + '<span class="muted" style="font-size:.5em"> / ' + s.wk[1] + '</span></div></div>' +
+      '<div class="tile"><div class="l">🗓️ 마지막 학습</div><div class="v" style="font-size:1.3em">' + (s.last ? md(s.last) : '–') + '</div><div class="xs muted">' + (s.days == null ? '기록 없음' : s.days === 0 ? '오늘' : s.days + '일 전') + '</div></div>' +
+      (s.avg == null && s.recN ?
+        '<div class="tile' + (s.recN >= 10 && s.recRate < 70 ? ' warn' : '') + '"><div class="l">🔈 목소리 확인(30일)</div><div class="v" style="color:' + recCol(s.recRate) + '">' + s.recRate + '<span class="muted" style="font-size:.5em">%</span></div><div class="xs muted">소리 들린 녹음 ' + s.recOk + ' / ' + s.recN + '번</div></div>' :
+        '<div class="tile"><div class="l">🎤 발음 평균(30일)</div><div class="v" style="color:' + (s.avg == null ? 'var(--muted)' : s.avg >= 85 ? 'var(--mint2)' : s.avg >= 70 ? 'var(--warn)' : 'var(--bad)') + '">' + (s.avg != null ? s.avg : '–') + '</div><div class="xs muted">' + (T.data.scoringOn ? s.scores.length + '문장' + (s.recN ? ' · 🔈' + s.recRate + '%' : '') : '채점 꺼짐') + '</div></div>') +
+      '<div class="tile"><div class="l">🔁 복습 밀림</div><div class="v" style="color:' + (s.reviewDue >= 3 ? 'var(--bad)' : 'var(--ink)') + '">' + s.reviewDue + '</div></div>' +
+    '</div>' +
+    '<div class="two"><div>' +
+      '<div class="card"><h2>💡 지도 방안</h2>' + s.advice.map(function(a){ return '<div class="advise ' + a[0] + '"><span>' + a[1] + '</span><span>' + a[2] + '</span></div>'; }).join('') + '</div>' +
+      '<div class="card"><h2>🗺️ 진도 (36단원 · 단원당 5패턴)</h2>' + stripHtml(s) + '</div>' +
+      '<div class="card"><h2>🎯 레벨 테스트 변화</h2>' + (s.lts.length ? levelChart(s.lts) : '<div class="muted sm">기록 없음</div>') + '</div>' +
+      '<div class="card"><h2>📚 주별 완료 패턴 (8주)</h2>' + weekChart(s.weeks) + '</div>' +
+    '</div><div>' +
+      '<div class="card"><h2>📝 선생님 메모</h2><textarea id="noteBox" placeholder="상담·지도 내용을 적어 두세요. 리포트의 「선생님 의견」에 들어가요.">' + esc(s.note) + '</textarea>' +
+        '<div class="row" style="justify-content:space-between;margin-top:8px"><span class="muted xs">' + (s.noteD ? '마지막 저장 ' + s.noteD : '저장된 메모 없음') + '</span><button class="btn sm" onclick="saveNote(\'' + esc(s.name) + '\')">💾 저장</button></div></div>' +
+      '<div class="card"><h2>⚙️ 학습 단계</h2><div class="row"><select id="lvSel">' + ['초급','중급','고급'].map(function(l){ return '<option' + (l === s.level ? ' selected' : '') + '>' + l + '</option>'; }).join('') + '</select><button class="btn gray sm" onclick="saveLevel(\'' + esc(s.name) + '\')">단계 바꾸기</button><span class="muted xs">학생 앱의 「오늘의 패턴」이 이 단계에서 나와요</span></div></div>' +
+      '<div class="card"><h2>🎤 자주 틀리는 단어 (30일)</h2>' + (s.weak.length ? '<div class="weak">' + s.weak.map(function(w){ return '<span>' + esc(w[0]) + ' <small class="muted">×' + w[1] + '</small></span>'; }).join('') + '</div>' : '<div class="muted sm">' + (T.data.scoringOn ? '아직 없어요' : '발음 채점(Azure)이 켜지면 보여요') + '</div>') + '</div>' +
+      '<div class="card"><h2>🏆 미션 녹음 자동 점검 <span class="muted xs" style="font-weight:700">30일: ' + misCell(s.mis) + '</span></h2>' +
+        (s.missions.length ? s.missions.map(function(m){ var ic = MIS_IC[m.v] || '⏳', col = MIS_COL[m.v] || 'var(--muted)';
+          var mm = m.heard ? String(m.memo || '').replace(/^들린 문장:[^|]*\|?/, '').replace(/^\s*\|\s*/, '').trim() : '';   // Azure가 들은 경우만 상세(패턴 일치·교정)
+          return '<div class="act" style="align-items:flex-start;flex-wrap:wrap"><span class="d">' + md(m.d) + '</span><span style="color:' + col + ';font-weight:900;flex:none">' + ic + '</span><span style="flex:1;min-width:200px"><b>' + esc(m.pid) + '</b>' + (m.why ? ' <span class="muted">' + esc(m.why) + '</span>' : '') + (m.heard ? '<div class="en" style="font-weight:800">🎧 ' + esc(m.heard) + '</div>' : '') + (mm ? '<div class="xs muted">' + esc(mm) + '</div>' : '') + '</span>' + (m.url ? '<a class="btn gray sm" style="text-decoration:none" href="' + esc(m.url) + '" target="_blank" rel="noopener">▶ 듣기</a>' : '') + '</div>'; }).join('') +
+          '<div class="muted xs" style="margin-top:6px">✅ 통과(패턴 사용·길이·발음 모두 OK)는 안 들어 봐도 돼요 · 🔈 목소리 확인됨(무료 기본 점검 — 내용은 몇 개만 골라 들어 보세요) · ⚠️ 확인 · ❌ 패턴이 안 들림·소리 없음(학생에게 다시 녹음 안내됨) · ⏳ 자동 점검 안 됨 · 듣기는 학원 구글 계정 로그인 필요</div>' : '<div class="muted sm">아직 없어요</div>') + '</div>' +
+      '<div class="card"><h2>🕒 최근 활동</h2>' + (s.recent.length ? s.recent.map(function(a){ var tg = a.act === '완료' ? 'ok' : a.act === '반복' ? 'rp' : a.act === 'AI대화' ? 'ai' : a.act === 'mission' ? 'ms' : '';
+          var label = { '완료':'완료', '반복':'반복 연습', 'AI대화':'AI 대화', mission:'미션', listen:'따라 말하기', swap:'바꿔 말하기', qa:'묻고 답하기', snow:'문장 늘리기', drill:'반복' }[a.act] || a.act;
+          var rk = a.rec && String(a.rec).match(/말하기 (\d+)\/(\d+)/), rr = rk && Number(rk[2]) ? Math.round(100 * Number(rk[1]) / Number(rk[2])) : null;
+          return '<div class="act"><span class="d">' + md(a.d) + '</span><span class="tag ' + tg + '">' + label + '</span><span class="t">' + esc(a.pid) + ' · ' + esc(a.txt) + '</span>' + (rr != null ? '<span class="xs" title="녹음에서 목소리가 들린 횟수 / 녹음 횟수" style="font-weight:900;flex:none;color:' + recCol(rr) + '">🔈 ' + rk[1] + '/' + rk[2] + '</span>' : '') + (a.score != null && a.act !== '완료' ? '<b style="color:' + (a.score >= 70 ? 'var(--mint2)' : 'var(--bad)') + '">' + a.score + '</b>' : '') + '</div>'; }).join('') : '<div class="muted sm">아직 없어요</div>') + '</div>' +
+    '</div></div>';
+  $('sStudent').innerHTML = html; show('sStudent');
+}
+function stripHtml(s){
+  var np = s.maxDone ? Math.min(36, Math.floor(s.maxDone / 5) + 1) : 1, cells = '';
+  for (var u = 1; u <= 36; u++) { var n = 0; for (var k = (u-1)*5+1; k <= u*5; k++) if (s.done.indexOf(k) >= 0) n++;
+    cells += '<i class="' + (n === 5 ? 'f' : n ? 'p' : '') + (u === np ? ' now' : '') + '" title="Unit ' + ((u-1) % 12 + 1) + ' (' + bandOf(u*5) + ') ' + n + '/5"></i>'; }
+  return '<div class="strip">' + cells + '</div><div class="striplab"><span>초급 Level 1~60</span><span>중급 61~120</span><span>고급 121~180</span></div>';
+}
+async function saveNote(name){
+  var v = $('noteBox').value.trim(); if (!v) { toast('메모를 입력하세요.'); return; }
+  try { var r = await post({ action:'tnote', pin:T.pin, cls:T.cls, name:name, note:v }); if (!r.ok) throw new Error(r.error); var s = stu(name); s.note = v; s.noteD = today(); toast('💾 저장했어요'); openStudent(name); }
+  catch(e){ toast('⚠ ' + (e.message || '저장 실패')); }
+}
+async function saveLevel(name){
+  var lv = $('lvSel').value; if (!confirm(name + ' 학생의 학습 단계를 ' + lv + '편으로 바꿀까요?')) return;
+  try { var r = await post({ action:'tlevel', pin:T.pin, cls:T.cls, name:name, level:lv }); if (!r.ok) throw new Error(r.error); stu(name).level = lv; toast(lv + '편으로 바꿨어요'); openStudent(name); }
+  catch(e){ toast('⚠ ' + (e.message || '변경 실패')); }
+}
+
+/* ───── 차트 (단일 계열, 범례 없음) ───── */
+function levelChart(tests){
+  var W = 560, H = 230, L = 44, R = 48, Tp = 20, B = 34, iw = W - L - R, ih = H - Tp - B, y = function(v){ return Tp + ih - v / 180 * ih; };
+  var pts = tests.slice(-10), n = pts.length, x = function(i){ return L + (n === 1 ? iw / 2 : i * iw / (n - 1)); };
+  var g = [[0,60,'#EEF1FF','초급'],[60,120,'#FFF1EC','중급'],[120,180,'#E8F7F5','고급']].map(function(b){ return '<rect x="'+L+'" y="'+y(b[1])+'" width="'+iw+'" height="'+(y(b[0])-y(b[1]))+'" fill="'+b[2]+'"/><text x="'+(L+iw+8)+'" y="'+(y((b[0]+b[1])/2)+4)+'" font-size="12" font-weight="800" fill="#6B7A99">'+b[3]+'</text>'; }).join('');
+  [0,60,120,180].forEach(function(v){ g += '<line x1="'+L+'" x2="'+(L+iw)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="#D5D9E8"/><text x="'+(L-8)+'" y="'+(y(v)+4)+'" text-anchor="end" font-size="11" fill="#6B7A99">'+(v||1)+'</text>'; });
+  var path = pts.map(function(p, i){ return (i ? 'L' : 'M') + x(i) + ' ' + y(Math.max(1, p.lv)); }).join(' ');
+  var dots = pts.map(function(p, i){ return '<circle cx="'+x(i)+'" cy="'+y(Math.max(1,p.lv))+'" r="6" fill="#7C5CFF" stroke="#fff" stroke-width="2"/><text x="'+x(i)+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="#6B7A99">'+md(p.d)+'</text><text x="'+x(i)+'" y="'+(y(Math.max(1,p.lv))-12)+'" text-anchor="middle" font-size="12" font-weight="900" fill="#1F2A44">'+Math.max(1,p.lv)+'</text>'; }).join('');
+  return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="레벨 테스트 변화">' + g + '<path d="'+path+'" fill="none" stroke="#7C5CFF" stroke-width="3" stroke-linejoin="round"/>' + dots + '</svg>';
+}
+function weekChart(ws){
+  var W = 560, H = 170, L = 30, R = 8, Tp = 22, B = 30, iw = W - L - R, ih = H - Tp - B, mx = Math.max(5, Math.max.apply(null, ws.map(function(w){ return w.c; }))), bw = iw / ws.length, g = '';
+  [0, Math.round(mx/2), mx].forEach(function(v){ var yy = Tp + ih - v/mx*ih; g += '<line x1="'+L+'" x2="'+(L+iw)+'" y1="'+yy+'" y2="'+yy+'" stroke="#E3E7F3"/><text x="'+(L-6)+'" y="'+(yy+4)+'" text-anchor="end" font-size="11" fill="#6B7A99">'+v+'</text>'; });
+  ws.forEach(function(w, i){ var h = w.c / mx * ih, bx = L + i*bw + bw*0.2, by = Tp + ih - h, cur = i === ws.length-1;
+    if (w.c) g += '<rect x="'+bx+'" y="'+by+'" width="'+(bw*0.6)+'" height="'+h+'" rx="4" fill="'+(cur ? '#2EC27E' : '#9FDFBF')+'"/><text x="'+(bx+bw*0.3)+'" y="'+(by-5)+'" text-anchor="middle" font-size="11" font-weight="800" fill="#1F2A44">'+w.c+'</text>';
+    g += '<text x="'+(bx+bw*0.3)+'" y="'+(H-10)+'" text-anchor="middle" font-size="11" fill="#6B7A99">'+(cur ? '이번 주' : md(w.s))+'</text>'; });
+  return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="주별 완료 패턴 수">' + g + '</svg>';
+}
+
+/* ───── 학부모 상담 리포트 ───── */
+function misNote(m){ var t = []; if (m.ok) t.push('자동 점검 통과 ' + m.ok + '회'); if (m.snd) t.push('목소리 확인 ' + m.snd + '회'); return t.length ? '(' + t.join(' · ') + ')' : ''; }
+function reportHtml(s){
+  var st = stageOf(s.skill || s.maxDone || 0), nx = STAGES[STAGES.indexOf(st) + 1];
+  var recent = s.recentPats.slice(0, 8).map(function(r){ var p = patOf(r.no); return p ? '<div>· <b class="en">' + esc(p.pattern) + '</b> <span class="muted">' + esc(p.ko) + '</span></div>' : ''; }).join('');
+  var nextNo = s.maxDone ? Math.min(180, s.maxDone + 1) : 1, np = patOf(nextNo);
+  var goals = ['다음 패턴: Level ' + nextNo + (np ? ' 「' + np.pattern + '」(' + np.unit + ')' : ''), '주 3회, 하루 10분 학습', nx ? '다음 단계 ' + nx.pic + ' ' + nx.name + '(Level ' + (st.to + 1) + '~' + nx.to + '): ' + nx.can : '고급편 발표 패턴으로 실력 유지'];
+  return '<div class="report">' +
+    '<div class="rhead">' + sunny(56) + '<div style="flex:1"><div class="t1">영어회화 패턴 학습 리포트</div><div class="t2">' + esc(ACADEMY) + ' · ' + esc(T.cls) + ' · ' + today() + '</div></div><div style="text-align:right"><div style="font-weight:900;font-size:1.3em">' + (s.avatar || '') + ' ' + esc(s.name) + '</div><div class="t2">' + (s.level ? s.level + '편 학습 중' : '단계 미정') + '</div></div></div>' +
+    '<div class="rtiles"><div class="rtile"><div class="v">' + (s.skill ? 'Lv ' + s.skill : '–') + '</div><div class="l">영어회화 실력 (180단계)</div></div><div class="rtile"><div class="v">' + s.doneN + '</div><div class="l">배운 패턴 (총 180)</div></div><div class="rtile"><div class="v" style="color:#c98a00">⭐ ' + s.stars + '</div><div class="l">모은 별</div></div><div class="rtile"><div class="v" style="color:var(--mint2)">' + s.last28 + '</div><div class="l">최근 4주 완료 패턴</div></div></div>' +
+    '<div class="rsec"><h3>' + st.pic + ' 지금 할 수 있는 말 · ' + st.name + ' <span class="muted" style="font-weight:700;font-size:.85em">(' + st.cefr + ')</span></h3><div style="line-height:1.6">' + st.can + '</div></div>' +
+    '<div class="rsec"><h3>🗺️ 진도</h3>' + stripHtml(s) + '</div>' +
+    '<div class="two" style="gap:14px"><div class="rsec"><h3>🎯 레벨 테스트 변화</h3>' + (s.lts.length ? levelChart(s.lts) : '<div class="muted sm">아직 레벨 테스트 기록이 없어요.</div>') + '</div><div class="rsec"><h3>📚 주별 학습량 (8주)</h3>' + weekChart(s.weeks) + '</div></div>' +
+    '<div class="rsec"><h3>🗣️ 최근에 배운 패턴</h3>' + (recent ? '<div class="rlist">' + recent + '</div>' : '<div class="muted sm">아직 없어요.</div>') + '</div>' +
+    (T.data.scoringOn ? '<div class="rsec"><h3>🎤 발음</h3><div>최근 30일 평균 <b>' + (s.avg != null ? s.avg + '점' : '–') + '</b>' + (s.weak.length ? ' · 연습이 더 필요한 단어: <b class="en">' + s.weak.slice(0, 5).map(function(w){ return esc(w[0]); }).join(', ') + '</b>' : '') + '</div></div>' :
+      s.recN ? '<div class="rsec"><h3>🗣️ 말하기</h3><div>최근 30일 소리 내어 말한 녹음 <b>' + s.recN + '번</b> · 그중 목소리가 확인된 녹음 <b>' + s.recOk + '번 (' + s.recRate + '%)</b></div></div>' : '') +
+    '<div class="rsec"><h3>🧩 활동 (최근 30일)</h3><div>패턴 완료 ' + (s.acts['완료'] || 0) + '회 · 반복 연습 ' + (s.acts['반복'] || 0) + '회 · 미션 녹음 ' + (s.acts['mission'] || 0) + '회' + misNote(s.mis) + ' · AI 대화 ' + (s.acts['AI대화'] || 0) + '회</div></div>' +
+    '<div class="rsec"><h3>👩‍🏫 선생님 의견</h3><div class="rnote">' + (s.note ? esc(s.note) : '<span class="muted">(학생 상세 화면의 「선생님 메모」에 적으면 여기에 나와요)</span>') + '</div></div>' +
+    '<div class="rsec"><h3>🎯 다음 목표</h3><div style="line-height:1.7">' + goals.map(function(g){ return '· ' + esc(g); }).join('<br>') + '</div></div>' +
+    '<div class="rsec"><h3>🏠 가정에서 이렇게 도와주세요</h3><div style="line-height:1.7;font-size:.92em">· 오늘 배운 패턴을 집에서 한 번만 말해 보게 해 주세요. ("오늘 뭐 배웠어? 영어로 말해 줄래?")<br>· 발음이 틀려도 고치기보다 먼저 칭찬해 주세요. 반복이 가장 좋은 교정입니다.<br>· 하루 10분, 매일보다 "빠지지 않기"가 중요합니다. 연속 학습일(🔥)을 함께 응원해 주세요.</div></div>' +
+    '<div class="rfoot"><span>' + esc(ACADEMY) + ' · 영어회화 패턴 180 (초급·중급·고급)</span><span>발행 ' + today() + '</span></div></div>';
+}
+function openReport(names){
+  var list = names.map(stu).filter(Boolean); if (!list.length) return;
+  $('reports').innerHTML = list.map(reportHtml).join(''); show('sReport');
+}
+function openClassReport(){
+  var ss = filtered();
+  $('reports').innerHTML = '<div class="report"><div class="rhead">' + sunny(56) + '<div style="flex:1"><div class="t1">' + esc(T.cls) + ' 영어회화 패턴 학습 현황</div><div class="t2">' + esc(ACADEMY) + ' · ' + today() + ' · ' + ss.length + '명</div></div></div>' +
+    '<table class="rtbl"><tr><th>이름</th><th>단계</th><th>실력 Level</th><th>배운 패턴</th><th>⭐ 별</th><th>이번 주</th><th>최근 4주</th><th>마지막 학습</th><th>' + (T.data.scoringOn ? '발음' : '말하기') + '</th><th>미션 (확인 필요)</th><th>상태</th></tr>' +
+    ss.map(function(s){ return '<tr><td class="l">' + (s.avatar || '') + ' ' + esc(s.name) + '</td><td>' + (s.level || '–') + '</td><td>' + (s.skill ? 'Lv ' + s.skill : '–') + '</td><td>' + s.doneN + '</td><td>' + s.stars + '</td><td>' + s.wk[0] + '</td><td>' + s.last28 + '</td><td>' + (s.last ? md(s.last) : '–') + '</td><td>' + (s.avg != null ? s.avg : s.recRate != null ? '🔈' + s.recRate + '%' : '–') + '</td><td>' + ((s.mis.ok ? '✅' + s.mis.ok + ' ' : '') + (s.mis.snd ? '🔈' + s.mis.snd + ' ' : '') + (s.mis.ok + s.mis.snd + s.misFlag ? '(' + s.misFlag + ')' : '–')) + '</td><td>' + ({ g:'🟢', y:'🟡', r:'🔴', n:'⚪' }[s.status]) + '</td></tr>'; }).join('') + '</table>' +
+    '<div class="rsec" style="margin-top:14px"><h3>💡 이번 주 지도 포인트</h3><div style="line-height:1.7;font-size:.92em">' +
+      ss.filter(function(s){ return s.advice.some(function(a){ return a[0] === 'warn'; }); }).map(function(s){ return '· <b>' + esc(s.name) + '</b>: ' + s.advice.filter(function(a){ return a[0] === 'warn'; }).map(function(a){ return a[2]; }).join(' / '); }).join('<br>') || '· 특별히 주의할 학생이 없어요. 👍' +
+    '</div></div><div class="rfoot"><span>' + esc(ACADEMY) + '</span><span>' + today() + '</span></div></div>';
+  show('sReport');
+}
+init();
+</script>
+</body>
+</html>
