@@ -42,7 +42,7 @@
   .clsgrid small{display:block;color:var(--muted);font-weight:700;font-size:.75em}
 
   /* 반 현황 */
-  .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px}
+  .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
   @media (max-width:1000px){ .tiles{grid-template-columns:repeat(3,1fr)} }
   @media (max-width:560px){ .tiles{grid-template-columns:repeat(2,1fr)} }
   .tile{background:#fff;border-radius:16px;padding:14px 16px;box-shadow:var(--shadow)}
@@ -363,8 +363,8 @@ function showClass(){
   var mwHtml = [['ok','var(--mint2)', mw.ok || sc], ['snd','var(--sky2)', mw.snd || !sc], ['warn','var(--warn)', true], ['bad','var(--bad)', true], ['pending','var(--muted)', mw.pending]]
     .filter(function(x){ return x[2]; }).map(function(x){ return '<span style="color:' + x[1] + '">' + MIS_IC[x[0]] + ' ' + mw[x[0]] + '</span>'; }).join(' ');
   var mwSub = mwNeed ? '⚠️·❌·⏳만 들어 보면 돼요' + (mw.snd ? ' · 🔈는 몇 개만' : '') : mw.snd ? '🔈 목소리 확인됨 — 몇 개만 골라 들어 보세요' : '들어 볼 녹음이 없어요 👍';
-  $('tiles').innerHTML = '<div class="tile"><div class="l">👧 학생</div><div class="v">' + n + '<span class="muted" style="font-size:.5em"> 명</span></div></div>' +
-    '<div class="tile"><div class="l">📅 이번 주 학습한 학생</div><div class="v" style="color:var(--mint2)">' + act + '<span class="muted" style="font-size:.5em"> / ' + n + '</span></div></div>' +
+  $('tiles').innerHTML = '' +   // 학생 수 칸은 뺌(원장님 요청)
+    '<div class="tile"><div class="l">📅 이번 주 학습한 학생</div><div class="v" style="color:var(--mint2)">' + act + '<span class="muted" style="font-size:.5em"> 명</span></div></div>' +
     '<div class="tile' + (red ? ' warn' : '') + '"><div class="l">🔴 8일 이상 안 한 학생</div><div class="v">' + red + '<span class="muted" style="font-size:.5em"> 명</span></div></div>' +
     '<div class="tile"><div class="l">📍 평균 현재 Level</div><div class="v" style="color:var(--grape)">' + (avgLv ? 'Lv ' + avgLv : '–') + '</div><div class="xs muted">🏁 Pass 통과 ' + passN + '단원' + (passWait ? ' · 대기 ' + passWait + '명' : '') + '</div></div>' +
     '<div class="tile"><div class="l">📚 이번 주 완료 패턴</div><div class="v">' + weekDone + '<span class="muted" style="font-size:.5em"> 개</span></div><div class="xs muted">1인 평균 누적 ' + avgDone + '개</div></div>' +
