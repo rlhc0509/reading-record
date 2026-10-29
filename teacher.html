@@ -235,7 +235,7 @@ function renderClassGrid(){
   var g = $('clsGrid'); g.innerHTML = '';
   Object.keys(CFG.classes).forEach(function(c){
     var b = document.createElement('button'); b.className = c === T.cls ? 'on' : '';
-    b.innerHTML = esc(c) + '<small>' + CFG.classes[c].length + '명</small>'; b.onclick = function(){ T.cls = c; renderClassGrid(); };
+    b.innerHTML = esc(c); b.onclick = function(){ T.cls = c; renderClassGrid(); };
     g.appendChild(b);
   });
   if (!g.children.length) g.innerHTML = '<span class="muted sm">시트 「학생」 탭에 학생이 없어요.</span>';
@@ -256,7 +256,7 @@ async function loadClass(silent){
     if (!r.ok) { $('loginMsg').textContent = r.error || '오류'; show('sLogin'); return; }
     T.data = r; r.students.forEach(derive);
     try { sessionStorage.setItem('t_last', JSON.stringify({ cls: T.cls, pin: T.pin })); } catch(e){}
-    $('clsChip').textContent = '🏫 ' + T.cls + ' · ' + r.students.length + '명'; ['clsChip','btnReload','btnOut'].forEach(function(i){ $(i).classList.remove('hidden'); });
+    $('clsChip').textContent = '🏫 ' + T.cls; ['clsChip','btnReload','btnOut'].forEach(function(i){ $(i).classList.remove('hidden'); });
     showClass();
   } catch(e){ $('loginMsg').textContent = '서버 연결 실패 — 잠시 뒤 다시 시도하세요.'; show('sLogin'); }
 }
