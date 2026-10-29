@@ -51,6 +51,13 @@
   .tile.warn .v{color:var(--bad)}
   .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
   .fchip{border:2px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-weight:800;font-size:.85em}
+  .fchip.codebtn{margin-left:auto;border-style:dashed}
+  .fchip.codebtn.on{background:#FFF4E5;border-color:#E0A100;color:#8a5a00;border-style:solid}
+  .pw{display:inline-block;margin-top:3px;padding:1px 8px;border-radius:8px;background:#FFF4E5;color:#8a5a00;font-weight:900;font-size:.82em;letter-spacing:1px;white-space:nowrap}
+  .pw.none{background:#F1F5F9;color:var(--muted);letter-spacing:0;font-weight:700}
+  .pwrow{margin-top:6px;font-size:.92em}
+  .tbl .nm span.pw{font-size:.78em;margin-right:0}
+  .pwrow button{margin-left:6px}
   .fchip.on{border-color:var(--sky);background:var(--soft);color:var(--sky2)}
   .tbl{width:100%;border-collapse:collapse;font-size:.9em}
   .tbl th{position:sticky;top:0;background:#F6F9FF;text-align:left;padding:10px 5px;font-size:.8em;color:var(--muted);border-bottom:2px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
@@ -200,7 +207,7 @@ function unitLabel(k){ return bandOf(k * 5) + ' Unit ' + ((k - 1) % 12 + 1); }  
 function unitName(k){ var p = PATS[(k - 1) * 5]; return unitLabel(k) + (p ? ' ' + p.unit : ''); }
 function curText(no){ var p = patOf(no); return 'Level ' + no + ' · ' + unitName(Math.ceil(no / 5)) + (p ? ' — ' + p.pattern : ''); }
 
-var CFG = { classes: {} }, T = { pin:'', cls:'', data:null, sort:['status', 1], filter:'all', pick:{} };
+var CFG = { classes: {} }, T = { pin:'', cls:'', data:null, sort:['status', 1], filter:'all', pick:{}, showCode:false };
 function $(id){ return document.getElementById(id); }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function toast(m){ var t = document.createElement('div'); t.className='toast'; t.textContent = m; document.body.appendChild(t); setTimeout(function(){ t.remove(); }, 2200); }
@@ -364,13 +371,14 @@ function showClass(){
     '<div class="tile' + (mwNeed ? ' warn' : '') + '"><div class="l">🏆 미션 자동 점검 (이번 주)</div><div class="v" style="font-size:1.2em">' + mwHtml + '</div><div class="xs muted">' + mwSub + '</div></div>';
   $('clsTitle').textContent = '📋 ' + T.cls + ' 현황 · ' + today();
   var fs = [['all','전체'],['week0','이번 주 안 함'],['r','🔴 8일 이상'],['review','🔁 복습 밀림'],['pron', sc ? '🎤 발음 70점 미만' : '🎧 목소리 확인 70% 미만'],['mis','🎧 미션 확인 필요'],['pass','🏁 Pass Test 대기']];
-  $('filters').innerHTML = fs.map(function(f){ return '<button class="fchip' + (T.filter === f[0] ? ' on' : '') + '" onclick="T.filter=\'' + f[0] + '\';showClass()">' + f[1] + '</button>'; }).join('');
+  $('filters').innerHTML = fs.map(function(f){ return '<button class="fchip' + (T.filter === f[0] ? ' on' : '') + '" onclick="T.filter=\'' + f[0] + '\';showClass()">' + f[1] + '</button>'; }).join('') +
+    '<button class="fchip codebtn noprint' + (T.showCode ? ' on' : '') + '" onclick="T.showCode=!T.showCode;showClass()">' + (T.showCode ? '🙈 비밀번호 숨기기' : '🔒 비밀번호 보기') + '</button>';
   var cols = [['','✔'],['status','상태'],['name','이름'],['cur','📍 현재 Level'],['pass','🏁 Pass'],['done','완료 패턴'],['stars','⭐ 별'],['wk','이번 주'],['last','마지막 학습'],['avg', sc ? '발음' : '말하기'],['mis','미션(30일)'],['review','복습 밀림'],['','']];
   var html = '<tr>' + cols.map(function(c){ return '<th' + (c[0] && T.sort[0] === c[0] ? ' class="s"' : '') + (c[0] ? ' onclick="sortBy(\'' + c[0] + '\')"' : '') + '>' + c[1] + (c[0] && T.sort[0] === c[0] ? (T.sort[1] > 0 ? ' ▲' : ' ▼') : '') + '</th>'; }).join('') + '</tr>';
   filtered().forEach(function(s){
     var stText = { g:'🟢 ' + (s.days === 0 ? '오늘' : s.days + '일 전'), y:'🟡 ' + s.days + '일 전', r:'🔴 ' + s.days + '일 전', n:'⚪ 시작 전' }[s.status];
     html += '<tr><td><input type="checkbox" class="pick" value="' + esc(s.name) + '" onchange="pickN()"' + (T.pick[s.name] ? ' checked' : '') + '></td><td><span class="st ' + s.status + '">' + stText + '</span></td>' +
-      '<td class="nm" onclick="openStudent(\'' + esc(s.name) + '\')"><span>' + (s.avatar || '🙂') + '</span>' + esc(s.name) + '</td>' +
+      '<td class="nm" onclick="openStudent(\'' + esc(s.name) + '\')"><span>' + (s.avatar || '🙂') + '</span>' + esc(s.name) + (T.showCode ? '<br>' + pwText(s) : '') + '</td>' +
       '<td><b>Level ' + s.cur + '</b><br><span class="muted xs">' + bandOf(s.cur) + (s.curSet && s.curAt ? ' · 👩‍🏫 ' + md(s.curAt) : '') + '</span></td>' +
       '<td>' + (s.passed ? '<b style="color:var(--mint2)">✅ ' + s.passed + '</b>' : '<span class="muted">–</span>') + (s.passDue ? ' <span class="st y" title="' + esc(unitName(s.passDue)) + ' Pass Test 대기">대기</span>' : '') + '</td>' +
       '<td><span class="mini"><i style="width:' + Math.round(100 * s.doneN / 180) + '%"></i></span> <b>' + s.doneN + '</b><span class="muted xs"> · Lv' + (s.maxDone || 0) + '</span></td>' +
@@ -400,12 +408,18 @@ function sortBy(k){ T.sort = T.sort[0] === k ? [k, -T.sort[1]] : [k, k === 'name
 
 /* ───── 학생 상세 ───── */
 function stu(name){ return T.data.students.filter(function(s){ return s.name === name; })[0]; }
+/* 🔒 학생 비밀번호(시트 「학생」 탭 코드) — 학생이 화면을 볼 수 있어 처음엔 가려 두고, 눌렀을 때만 보여요 */
+function pwText(s){
+  if (s.code === undefined) return '<span class="pw none">서버 v4.2 필요</span>';
+  return s.code ? '<span class="pw">🔒 ' + esc(s.code) + '</span>' : '<span class="pw none">비밀번호 없음 · 이름만</span>';
+}
 function openStudent(name){
   var s = stu(name); if (!s) return;
   var st = stageOf(s.stageLv);
   var html = '<div class="card"><div class="shead"><div class="av">' + (s.avatar || '🙂') + '</div><div style="flex:1;min-width:0"><div style="font-weight:900;font-size:1.3em">' + esc(s.name) + ' <span class="muted sm">' + esc(T.cls) + '</span></div>' +
       '<span class="badge">' + bandOf(s.cur) + '편</span><span class="badge gold">📍 현재 Level ' + s.cur + '</span><span class="badge mint">' + st.pic + ' ' + st.name + ' · ' + st.cefr + '</span>' +
-      (s.passed ? '<span class="badge" style="background:#EDE7FF;color:#5B3DE0">🏁 Pass ' + s.passed + '단원</span>' : '') + '</div>' +
+      (s.passed ? '<span class="badge" style="background:#EDE7FF;color:#5B3DE0">🏁 Pass ' + s.passed + '단원</span>' : '') +
+      '<div class="pwrow noprint">학생 비밀번호: <span id="pwBox">' + (T.showCode ? pwText(s) : '<span class="pw none">••••</span>') + '</span><button class="btn gray sm" onclick="T.showCode=!T.showCode;openStudent(\'' + esc(s.name) + '\')">' + (T.showCode ? '🙈 숨기기' : '👁 보기') + '</button> <span class="muted xs">바꾸려면 시트 「학생」 탭 코드 칸 (바로 적용)</span></div>' + '</div>' +
       '<div class="row"><button class="btn green" onclick="openReport([\'' + esc(s.name) + '\'])">📄 상담 리포트</button></div></div></div>' +
     '<div class="tiles" style="grid-template-columns:repeat(6,1fr)">' +
       '<div class="tile"><div class="l">📚 완료 패턴</div><div class="v">' + s.doneN + '<span class="muted" style="font-size:.5em"> / 180</span></div><div class="xs muted">최고 Level ' + (s.maxDone || '–') + '</div></div>' +
