@@ -275,9 +275,9 @@ function derive(s){
   s.stageLv = Math.max(s.maxDone, s.cur - 1);
   // 🏁 단원 Pass Test: 통과한 단원 수 · 지금 도전할 단원(현재 단원이나 바로 앞 단원을 다 배웠는데 아직 PASS 못 함)
   s.pass = s.pass || {}; s.passList = Object.keys(s.pass).map(Number).sort(function(a, b){ return a - b; }).map(function(u){ var o = s.pass[u]; return { u: u, d: o.d, ok: o.ok, n: o.n, best: o.best }; });
-  s.passed = s.passList.filter(function(o){ return o.best >= 4; }).length;
+  s.passed = s.passList.filter(function(o){ return o.best >= pneed(o.n); }).length;
   var ku = Math.ceil(s.cur / 5); s.passDue = 0;
-  [ku, ku - 1].forEach(function(u){ if (s.passDue || u < 1) return; for (var x = (u - 1) * 5 + 1; x <= u * 5; x++) if (s.done.indexOf(x) < 0) return; if (!(s.pass[u] && s.pass[u].best >= 4)) s.passDue = u; });
+  [ku, ku - 1].forEach(function(u){ if (s.passDue || u < 1) return; for (var x = (u - 1) * 5 + 1; x <= u * 5; x++) if (s.done.indexOf(x) < 0) return; if (!(s.pass[u] && s.pass[u].best >= pneed(s.pass[u].n))) s.passDue = u; });
   s.days = s.last ? daysSince(s.last) : null;
   s.status = s.days == null ? 'n' : s.days <= 3 ? 'g' : s.days <= 7 ? 'y' : 'r';
   var sc = s.scores.slice(-30); s.avg = sc.length ? Math.round(sc.reduce(function(a, b){ return a + b.s; }, 0) / sc.length) : null;
@@ -331,6 +331,7 @@ function pronCell(s){
   if (s.recRate != null) return '<span title="녹음에서 목소리가 들린 비율 (최근 30일 ' + s.recOk + '/' + s.recN + '번)" style="font-weight:900;color:' + recCol(s.recRate) + '">🔈' + s.recRate + '%</span>';
   return '<span class="muted">–</span>';
 }
+function pneed(n){ return Math.ceil((Number(n) || 5) * 0.7); }   // v4.4: Pass 기준 = 5문제 4개 · 10문제 7개
 var MIS_IC = { ok:'✅', snd:'🔈', warn:'⚠️', bad:'❌', pending:'⏳' }, MIS_COL = { ok:'var(--mint2)', snd:'var(--sky2)', warn:'var(--warn)', bad:'var(--bad)', pending:'var(--muted)' };
 function misCell(m){
   var h = ['ok','snd','warn','bad','pending'].filter(function(k){ return m[k]; }).map(function(k){ return '<span style="color:' + MIS_COL[k] + ';font-weight:900">' + MIS_IC[k] + m[k] + '</span>'; }).join(' ');
@@ -473,12 +474,12 @@ async function saveCur(name){
 function passHtml(s){
   var h = s.passDue ? '<div class="advise todo"><span>🏁</span><span>' + esc(unitName(s.passDue)) + ' Pass Test 대기 중 — 5 Level을 다 배웠어요</span></div>' : '';
   if (!s.passList.length) return h + '<div class="muted sm">아직 기록이 없어요. 단원(5 Level)을 다 배우면 학생 앱에 🏁 Pass Test가 나와요.</div>';
-  return h + s.passList.slice().reverse().map(function(o){ var ok = o.best >= 4; return '<div class="prow"><b>' + esc(unitName(o.u)) + '</b><span style="font-weight:900;color:' + (ok ? 'var(--mint2)' : 'var(--warn)') + '">' + (ok ? '✅ PASS' : '🔁 다시') + '</span><span>최근 ' + o.ok + '/' + o.n + (o.best > o.ok ? ' · 최고 ' + o.best : '') + '</span><span class="muted xs">' + md(o.d) + '</span></div>'; }).join('');
+  return h + s.passList.slice().reverse().map(function(o){ var ok = o.best >= pneed(o.n); return '<div class="prow"><b>' + esc(unitName(o.u)) + '</b><span style="font-weight:900;color:' + (ok ? 'var(--mint2)' : 'var(--warn)') + '">' + (ok ? '✅ PASS' : '🔁 다시') + '</span><span>최근 ' + o.ok + '/' + o.n + (o.best > o.ok ? ' · 최고 ' + o.best : '') + '</span><span class="muted xs">' + md(o.d) + '</span></div>'; }).join('');
 }
 function stripHtml(s){
   var np = Math.ceil(s.cur / 5), cells = '';
   for (var u = 1; u <= 36; u++) { var n = 0; for (var k = (u-1)*5+1; k <= u*5; k++) if (s.done.indexOf(k) >= 0) n++;
-    cells += '<i class="' + (n === 5 ? 'f' : n ? 'p' : '') + (u === np ? ' now' : '') + '" title="' + esc(unitName(u)) + ' ' + n + '/5' + (s.pass && s.pass[u] && s.pass[u].best >= 4 ? ' · 🏁 PASS' : '') + '"></i>'; }
+    cells += '<i class="' + (n === 5 ? 'f' : n ? 'p' : '') + (u === np ? ' now' : '') + '" title="' + esc(unitName(u)) + ' ' + n + '/5' + (s.pass && s.pass[u] && s.pass[u].best >= pneed(s.pass[u].n) ? ' · 🏁 PASS' : '') + '"></i>'; }
   return '<div class="strip">' + cells + '</div><div class="striplab"><span>초급 Level 1~60</span><span>중급 61~120</span><span>고급 121~180</span></div>';
 }
 async function saveNote(name){
@@ -508,7 +509,7 @@ function reportHtml(s){
     '<div class="rtiles"><div class="rtile"><div class="v">Lv ' + s.cur + '</div><div class="l">지금 배우는 Level (180단계)</div></div><div class="rtile"><div class="v">' + s.doneN + '</div><div class="l">배운 패턴 (총 180)</div></div><div class="rtile"><div class="v" style="color:#c98a00">⭐ ' + s.stars + '</div><div class="l">모은 별</div></div><div class="rtile"><div class="v" style="color:var(--mint2)">' + s.last28 + '</div><div class="l">최근 4주 완료 패턴</div></div></div>' +
     '<div class="rsec"><h3>' + st.pic + ' 지금 할 수 있는 말 · ' + st.name + ' <span class="muted" style="font-weight:700;font-size:.85em">(' + st.cefr + ')</span></h3><div style="line-height:1.6">' + st.can + '</div></div>' +
     '<div class="rsec"><h3>🗺️ 진도</h3>' + stripHtml(s) + '</div>' +
-    '<div class="two" style="gap:14px"><div class="rsec"><h3>🏁 단원 Pass Test (묻고 답하기)</h3>' + (s.passList.length ? s.passList.slice(-6).map(function(o){ return '<div>· ' + esc(unitName(o.u)) + ' — ' + (o.best >= 4 ? '<b style="color:var(--mint2)">PASS</b>' : '연습 중') + ' (' + o.best + '/' + o.n + ')</div>'; }).join('') : '<div class="muted sm">단원(5 Level)을 마치면 Pass Test 기록이 생겨요.</div>') + '</div><div class="rsec"><h3>📚 주별 학습량 (8주)</h3>' + weekChart(s.weeks) + '</div></div>' +
+    '<div class="two" style="gap:14px"><div class="rsec"><h3>🏁 단원 Pass Test (영어 묻고 답하기 + 한글 보고 영어로)</h3>' + (s.passList.length ? s.passList.slice(-6).map(function(o){ return '<div>· ' + esc(unitName(o.u)) + ' — ' + (o.best >= pneed(o.n) ? '<b style="color:var(--mint2)">PASS</b>' : '연습 중') + ' (' + o.best + '/' + o.n + ')</div>'; }).join('') : '<div class="muted sm">단원(5 Level)을 마치면 Pass Test 기록이 생겨요.</div>') + '</div><div class="rsec"><h3>📚 주별 학습량 (8주)</h3>' + weekChart(s.weeks) + '</div></div>' +
     '<div class="rsec"><h3>🗣️ 최근에 배운 패턴</h3>' + (recent ? '<div class="rlist">' + recent + '</div>' : '<div class="muted sm">아직 없어요.</div>') + '</div>' +
     (T.data.scoringOn ? '<div class="rsec"><h3>🎤 발음</h3><div>최근 30일 평균 <b>' + (s.avg != null ? s.avg + '점' : '–') + '</b>' + (s.weak.length ? ' · 연습이 더 필요한 단어: <b class="en">' + s.weak.slice(0, 5).map(function(w){ return esc(w[0]); }).join(', ') + '</b>' : '') + '</div></div>' :
       s.recN ? '<div class="rsec"><h3>🗣️ 말하기</h3><div>최근 30일 소리 내어 말한 녹음 <b>' + s.recN + '번</b> · 그중 목소리가 확인된 녹음 <b>' + s.recOk + '번 (' + s.recRate + '%)</b></div></div>' : '') +
